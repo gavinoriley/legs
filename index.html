@@ -60,12 +60,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 50, 0.75);
+    background: rgba(10, 10, 50, 0.78);
     backdrop-filter: blur(12px);
-    padding: 14px 0;
+    padding: 9px 0;                    /* Thinner height */
     display: flex;
     justify-content: center;
-    gap: 52px;
+    gap: 48px;
     z-index: 100;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
@@ -73,23 +73,23 @@
 .navbar a {
     color: #fff;
     text-decoration: none;
-    font-size: 26px;
-    padding: 8px 14px;
+    font-size: 24px;                   /* Slightly smaller for sleek look */
+    padding: 6px 14px;
     border-radius: 4px;
     transition: color 0.3s ease;
 }
 
 .navbar a:hover {
-    color: #cccccc;           /* White fades to slightly darker grey */
+    color: #cccccc;                    /* White → Light Grey */
 }
 
-/* Buy Game Link - Yellow */
+/* Buy Game Link */
 .navbar a.buy-game-link {
     color: #ffdd88;
 }
 
 .navbar a.buy-game-link:hover {
-    color: #e6b55c;           /* Yellow fades to slightly darker yellow */
+    color: #e6b55c;                    /* Yellow → Darker Yellow */
 }
         section {
             width: 100vw;
