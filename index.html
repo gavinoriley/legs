@@ -56,38 +56,41 @@
             overflow-x: hidden;
         }
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #00008B;
-            padding: 12px 0;
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            z-index: 100;
-        }
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 26px;
-            text-shadow: 1px 1px 2px black;
-        }
-        .navbar a:hover {
-            color: #ddd;
-        }
-        .navbar a.devlog-link {
-            color: #ffff00;
-        }
-        .navbar a.devlog-link:hover {
-            color: #cccc00;
-        }
-        .navbar a.buy-game-link {
-            color: #FFD700;
-        }
-        .navbar a.buy-game-link:hover {
-            color: #DAA520;
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 50, 0.75);
+    backdrop-filter: blur(12px);
+    padding: 14px 0;
+    display: flex;
+    justify-content: center;
+    gap: 52px;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 26px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #cccccc;           /* White fades to slightly darker grey */
+}
+
+/* Buy Game Link - Yellow */
+.navbar a.buy-game-link {
+    color: #ffdd88;
+}
+
+.navbar a.buy-game-link:hover {
+    color: #e6b55c;           /* Yellow fades to slightly darker yellow */
+}
         section {
             width: 100vw;
             min-height: 600px;
