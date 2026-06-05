@@ -127,6 +127,12 @@
             height: 750px;
             z-index: 1000;
         }
+        /* NEW: Lets the container grow automatically when viewing an embed/X-widget */
+        .image-container.embed-active {
+            height: auto !important;
+            min-height: 500px;
+            overflow: visible;
+        }
         .gallery-image {
             width: 100%;
             height: 100%;
@@ -144,7 +150,7 @@
             align-items: center;
             justify-content: center;
             overflow-y: auto;
-            cursor: pointer;
+            padding: 20px 0; /* Adding padding to give the widget breathing room */
         }
 
         .date-time {
@@ -415,7 +421,6 @@
 
     <script>
         const images = [
-            // Added new Twitter Embed Entry as requested
             {
                 type: 'embed',
                 html: `<blockquote class="twitter-tweet" data-theme="dark"><p lang="und" dir="ltr">.<a href="https://x.com/BlumhouseGames?ref_src=twsrc%5Etfw">@BlumhouseGames</a> <a href="https://t.co/dE9FkUXug7">pic.twitter.com/dE9FkUXug7</a></p>&mdash; gavinoriley (@imgavinoriley) <a href="https://x.com/imgavinoriley/status/2061930293981003922?ref_src=twsrc%5Etfw">June 2, 2026</a></blockquote>`,
@@ -551,6 +556,8 @@
             
             // Logic to dynamically switch between Embed and Image based on current item
             if (currentImage.type === 'embed') {
+                imageContainer.classList.remove('enlarged'); // Ensure it shrinks back if it was zoomed
+                imageContainer.classList.add('embed-active'); // Add special layout rule for full embed view
                 galleryImage.style.display = 'none';
                 embedContainer.style.display = 'flex';
                 embedContainer.innerHTML = currentImage.html;
@@ -560,6 +567,7 @@
                     twttr.widgets.load(embedContainer);
                 }
             } else {
+                imageContainer.classList.remove('embed-active'); // Revert to normal clipping for static images
                 embedContainer.style.display = 'none';
                 galleryImage.style.display = 'block';
                 galleryImage.src = currentImage.src;
@@ -585,16 +593,12 @@
 
         updateImage();
 
+        // Keeps click-to-expand functional ONLY for standard image logic
         galleryImage.addEventListener('click', () => {
             imageContainer.classList.toggle('enlarged');
         });
         
-        // Let the user click the padding background around an embed to enlarge
-        embedContainer.addEventListener('click', (e) => {
-            if(e.target === embedContainer) {
-                imageContainer.classList.toggle('enlarged');
-            }
-        });
+        // Note: The embedContainer click listener was entirely removed here so the X widget cannot be clicked to zoom!
 
         leftArrow.addEventListener('click', (e) => {
             e.stopPropagation();
