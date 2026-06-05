@@ -1,30 +1,30 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>developer room</title>
-    <meta name="description" content="Hamachi the Psychotic Killer Developer Room.">
-    <meta name="keywords" content="Hamachi the Psychotic Killer, dev room, developer room, wip, work in progress, devlog, indie game dev, behind the scenes, game development">
-    <meta property="og:title" content="Dev Room - Hamachi the Psychotic Killer">
-    <meta property="og:description" content="Hamachi the Psychotic Killer Developer Room.">
-    <meta property="og:image" content="https://gavinoriley.github.io/assets/2HamachiTitleLogo.png">
-    <meta property="og:url" content="https://hamachithepsychotickiller.com/devroom/">
+    <title>Hamachi the Psychotic Killer</title>
+    <meta name="description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta name="keywords" content="Hamachi the Psychotic Killer, video game, indie game, action game, 2d game, platformer">
+    <meta property="og:title" content="Hamachi the Psychotic Killer">
+    <meta property="og:description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta property="og:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
+    <meta property="og:url" content="https://hamachithepsychotickiller.com">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Hamachi the Psychotic Killer">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dev Room - Hamachi the Psychotic Killer">
-    <meta name="twitter:description" content="Hamachi the Psychotic Killer Developer Room.">
-    <meta name="twitter:image" content="https://gavinoriley.github.io/assets/2HamachiTitleLogo.png">
+    <meta name="twitter:title" content="Hamachi the Psychotic Killer">
+    <meta name="twitter:description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
+    <meta name="twitter:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
     <meta name="twitter:site" content="@imgavinoriley">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hamachithepsychotickiller.com/devroom/">
-    <link rel="icon" type="image/x-icon" href="/assets/hamafavi.ico">
+    <link rel="canonical" href="https://hamachithepsychotickiller.com">
+    <link rel="icon" type="image/x-icon" href="https://gavinoriley.github.io/assets/hamafavi.ico">
     <link rel="preload" href="/assets/FSEX300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://www.youtube.com">
     <link rel="preconnect" href="https://store.steampowered.com">
-    
-    <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
-    
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
     <style>
         @font-face {
             font-family: 'FSEX300';
@@ -41,39 +41,22 @@
             box-sizing: border-box;
             font-family: 'FSEX300', Arial, sans-serif;
             cursor: url('https://gavinoriley.github.io/assets/sprCursor_3.png'), auto;
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         body {
-            background: #1a2e1a; /* Demonic Fel Green */
-            color: #ccffcc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-            padding-bottom: 180px;
+            background: #000000;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        /* === LIGHTS OUT MODE OVERRIDES === */
-        body.lights-out {
-            background: #050a05; /* Dark Necrotic Green */
-            color: #66ff66;
+        /* Lenis Recommended Styles */
+        html.lenis {
+            height: auto;
         }
-        body.lights-out .navbar {
-            background: rgba(0, 10, 0, 0.95);
-            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
         }
-        body.lights-out .image-container {
-            background-color: #0a140a;
-            border-color: #66ff66;
-            box-shadow: 0 0 20px rgba(102, 255, 102, 0.3);
-        }
-        body.lights-out .navbar a, 
-        body.lights-out .page-purpose, 
-        body.lights-out .description,
-        body.lights-out .fidget-title,
-        body.lights-out .music-player-title {
-            text-shadow: 0 0 6px #00ff00;
+        .lenis.lenis-stopped {
+            overflow: hidden;
         }
 
         /* === NAVBAR === */
@@ -82,13 +65,14 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(10, 20, 10, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(5px);
             padding: 9px 0;
             display: flex;
             justify-content: center;
             gap: 48px;
             z-index: 100;
+            border-bottom: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
         }
         .navbar a {
@@ -99,488 +83,271 @@
             border-radius: 4px;
             transition: color 0.3s ease;
         }
-        .navbar a:hover { color: #aaffaa; }
-        .navbar a.buy-game-link { color: #ccff88; }
-        .navbar a.buy-game-link:hover { color: #aadd66; }
-
-        .page-purpose {
-            width: 800px;
-            text-align: center;
-            margin-top: 80px;
-            margin-bottom: 25px;
-            font-size: 16px;
-            color: #fff;
+        .navbar a:hover {
+            color: #cccccc;
+        }
+        .navbar a.buy-game-link {
+            color: #ffdd88;
+        }
+        .navbar a.buy-game-link:hover {
+            color: #e6b55c;
         }
 
-        .image-container {
+        /* DEV ROOM - Dramatic Demonic Fel Green Pulsing Aura */
+        .navbar a.dev-room-link {
+            color: #fff;
             position: relative;
-            width: 800px;
-            height: 500px;
-            background-color: #fff;
-            border: 2px solid #224422;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .image-container.enlarged {
-            width: 1200px;
-            height: 750px;
-            z-index: 1000;
-        }
-        .image-container.embed-active {
-            height: auto !important;
-            min-height: 500px;
-            overflow: visible;
-        }
-        .gallery-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            cursor: pointer;
-        }
-        
-        #embedContainer {
-            display: none;
-            width: 100%;
-            height: 100%;
-            background: #0f1a0f;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-y: auto;
-            padding: 20px 0;
+            z-index: 1;
+            animation: fel-glow-pulse 1.8s ease-in-out infinite;
         }
 
-        .date-time {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 20, 0, 0.7);
+        .navbar a.dev-room-link:hover {
             color: #ccffcc;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 14px;
-            z-index: 10;
-        }
-        .description {
-            width: 800px;
-            text-align: center;
-            margin-top: 15px;
-            margin-bottom: 120px;
-            font-size: 16px;
-            color: #fff;
-            line-height: 1.6;
         }
 
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 20, 0, 0.7);
-            color: white;
-            font-size: 24px;
-            padding: 10px;
-            cursor: pointer;
-            display: none;
-            user-select: none;
-            z-index: 10;
-        }
-        .arrow.left { left: 10px; }
-        .arrow.right { right: 10px; }
-        .image-container:hover .arrow { display: block; }
-
-        .decorative-gif {
-            position: fixed;
-            width: 150px;
-            height: auto;
-            z-index: 10;
-        }
-        #gif1 { left: 10px; top: 60px; }
-        #gif2 { left: 10px; bottom: 10px; }
-        #gif3 { right: 10px; top: 60px; }
-        #gif4 { right: 10px; bottom: 10px; }
-        #gif5 { left: 50%; bottom: 10px; transform: translateX(-50%); }
-
-        .music-player-container {
-            position: fixed;
-            right: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 220px;
-            z-index: 10;
-            text-align: center;
-        }
-        .music-player-title {
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-        .music-player-container iframe {
-            width: 100%;
-            height: 124px;
-            border: 2px solid #224422;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        @keyframes fel-glow-pulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 8px #39ff14,
+                    0 0 18px #39ff14,
+                    0 0 35px #00ff7f;
+            }
+            50% {
+                text-shadow:
+                    0 0 20px #39ff14,
+                    0 0 40px #39ff14,
+                    0 0 70px #00ff7f,
+                    0 0 100px #00ff41,
+                    0 0 130px #39ff14,
+                    0 0 160px #00ff7f;
+            }
         }
 
-        .fidget-box {
-            position: fixed;
-            left: 50px;
-            width: 180px;
-            background: rgba(10, 20, 10, 0.9);
-            border: 2px solid #336633;
-            padding: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            z-index: 90;
-        }
-        .fidget-title {
-            font-size: 13px;
-            color: #88aa88;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        #lightSwitchWidget { top: 20%; }
-        .switch-btn {
-            background: #112211;
-            border: 2px solid #336633;
-            color: #fff;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            display: inline-block;
-            width: 100%;
-        }
-        .switch-btn:active { background: #224422; }
-
-        #eightBallWidget { top: 45%; }
-        .ball-sphere {
-            width: 70px;
-            height: 70px;
-            background: #0a140a;
-            border: 3px double #448844;
-            border-radius: 50%;
-            margin: 8px auto;
+        section {
+            width: 100vw;
+            min-height: 600px;
+            padding: 20px;
             display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
+            position: relative;
+        }
+        .title-section {
+            background-color: #000000;
+            padding: 0;
+            min-height: 0;
+        }
+        .news-section, .video-section, .about-section, .roadblock-section,
+        .characters-section, .worlds-section, .business-section {
+            background-color: #000000;
+            color: #fff;
+            height: auto;
+            padding: 0;
+            min-height: 0;
+        }
+        .video-section iframe {
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+        .business-section {
+            padding: 20px 0;
+            display: flex;
             justify-content: center;
-            cursor: pointer;
-            font-size: 11px;
-            color: #66ff66;
-            font-weight: bold;
-            padding: 6px;
-            user-select: none;
+            align-items: center;
         }
-        .ball-sphere.shake-anim { animation: ballShake 0.4s ease-in-out; }
-        @keyframes ballShake {
-            0%, 100% { transform: translate(0, 0); }
-            20% { transform: translate(-4px, 4px) rotate(-3deg); }
-            40% { transform: translate(4px, -4px) rotate(3deg); }
-            60% { transform: translate(-4px, -4px) rotate(-1deg); }
-            80% { transform: translate(4px, 4px) rotate(1deg); }
+        .business-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
         }
-
-        #bugSquisherWidget { top: 72%; }
-        .bug-display { font-size: 28px; margin: 5px 0; height: 40px; display: flex; align-items: center; justify-content: center; }
-        .squish-btn { background: #0a140a; border: 1px solid #336633; color: #fff; padding: 4px; font-size: 13px; width: 100%; cursor: pointer; }
-        .squish-btn:active { background: #224422; }
-        .bug-counter { font-size: 11px; color: #668866; margin-top: 5px; }
-
-        @media screen and (max-width: 1024px) {
-            .fidget-box, .music-player-container { position: static; margin: 20px auto; width: 800px; transform: none; }
-            #gif1, #gif2, #gif3, #gif4, #gif5 { display: none; }
+        .business-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px black;
+        }
+        .business-links a:hover {
+            color: #ddd;
+        }
+        .title-section img,
+        .news-section img,
+        .video-section iframe,
+        .about-section img,
+        .roadblock-section img,
+        .characters-section img,
+        .worlds-section img {
+            width: 100vw;
+            height: auto;
+            display: block;
+        }
+        .carousel {
+            width: 100vw;
+            height: calc(100vw * 3 / 16);
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-inner {
+            display: flex;
+            animation: scroll 40s linear infinite;
+        }
+        .carousel-inner img {
+            width: calc(100vw / 3);
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-100vw * 11 / 3)); }
+        }
+        footer {
+            background-color: #000000;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
         }
         @media screen and (max-width: 768px) {
-            .page-purpose, .description, .fidget-box, .music-player-container { width: 100%; }
-            .image-container, .image-container.enlarged { width: 100%; height: 300px; }
-            .image-container.enlarged { height: 80vh; }
+            .navbar {
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 8px 0;
+            }
+            .navbar a {
+                font-size: 16px;
+            }
+            .navbar a.play-game-link {
+                display: none;
+            }
+            .business-links {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            .business-links a {
+                font-size: 12px;
+            }
+            section {
+                padding: 10px;
+                min-height: auto;
+            }
+            .title-section {
+                padding-top: 60px;
+            }
         }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Hamachi the Psychotic Killer",
+      "description": "HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.",
+      "image": "https://gavinoriley.github.io/assets/ScreenshotHomePage.png",
+      "url": "https://hamachithepsychotickiller.com",
+      "genre": "Action, Platformer, Indie",
+      "gamePlatform": "PC",
+      "publisher": {
+        "@type": "Person",
+        "name": "Gavin ORiley"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 <body>
     <nav class="navbar">
-        <a href="https://hamachithepsychotickiller.com">HOME</a>
         <a href="https://hamachithepsychotickiller.com/about/">GAME INFO</a>
         <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="buy-game-link">BUY GAME</a>
         <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="play-game-link">PLAY ONLINE DEMO</a>
+        <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link">DEV ROOM</a>
     </nav>
-
-    <div class="fidget-box" id="lightSwitchWidget">
-        <div class="fidget-title">Room Lighting</div>
-        <button class="switch-btn" id="lightBtn">LIGHTS OUT</button>
+    <div id="wrapper">
+        <main id="container">
+            <section class="title-section">
+                <img src="https://gavinoriley.github.io/assets/ScreenshotHomePage.png" alt="Hamachi the Psychotic Killer game title logo">
+                <div class="carousel">
+                    <div class="carousel-inner">
+                        <img src="https://gavinoriley.github.io/assets/finalcara1.jpg" alt="Gameplay screenshot from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara2.jpg" alt="In-game environment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara3.jpg" alt="Character action scene from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara4.png" alt="Level design from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara5.png" alt="Game feature showcase from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara6.png" alt="Dynamic gameplay moment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara7.png" alt="Unique game art from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara8.jpg" alt="Promotional image for Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara9.jpg" alt="Additional gameplay screenshot from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara10.jpg" alt="Another in-game environment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara11.jpg" alt="Extended promotional image for Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara1.jpg" alt="Gameplay screenshot from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara2.jpg" alt="In-game environment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara3.jpg" alt="Character action scene from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara4.png" alt="Level design from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara5.png" alt="Game feature showcase from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara6.png" alt="Dynamic gameplay moment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara7.png" alt="Unique game art from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara8.jpg" alt="Promotional image for Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara9.jpg" alt="Additional gameplay screenshot from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara10.jpg" alt="Another in-game environment from Hamachi the Psychotic Killer">
+                        <img src="https://gavinoriley.github.io/assets/finalcara11.jpg" alt="Extended promotional image for Hamachi the Psychotic Killer">
+                    </div>
+                </div>
+            </section>
+            <section class="news-section">
+                <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://gavinoriley.github.io/assets/FinalClipBanner2.png" alt="Hamachi the Psychotic Killer Challenge Level">
+                </a>
+            </section>
+            <section class="video-section">
+                <iframe src="https://www.youtube.com/embed/VbFZFto8Naw" title="Hamachi the Psychotic Killer - Gameplay Trailer #2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </section>
+            <section class="roadblock-section">
+                <img src="https://gavinoriley.github.io/assets/3BLOCkRESTHAMACHI.png" alt="Roadblock and gameplay features for Hamachi the Psychotic Killer">
+            </section>
+            <section class="about-section">
+                <img src="https://gavinoriley.github.io/assets/FinalIntroduction.png" alt="Introduction screenshot for Hamachi the Psychotic Killer">
+            </section>
+            <section class="characters-section">
+                <img src="https://gavinoriley.github.io/assets/FinalCharacters.png" alt="Character lineup for Hamachi the Psychotic Killer">
+            </section>
+            <section class="worlds-section">
+                <img src="https://gavinoriley.github.io/assets/FinalWorlds2.png" alt="World environments in Hamachi the Psychotic Killer">
+            </section>
+            <section class="business-section">
+                <div class="business-links">
+                    <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/cbeecc8fd965c68b6d64b82a593dafd5da4b0412/2hamachi-the-psychotic-killer-manual.pdf?t=1746692821" target="_blank">Game Manual</a>
+                    <a href="https://x.com/imgavinoriley" target="_blank">𝕏</a>
+                    <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/4d24f19e6c5b25a41f86c5655abce55091d9eebc/hamachicube.pdf?t=1746692821" target="_blank">Hamachi Cube</a>
+                    <a href="https://www.youtube.com/@hamachithepsychotickiller" target="_blank">YouTube</a>
+                    <a href="mailto:img.oriley@gmail.com?subject=Contact%20from%20Hamachi%20the%20Psychotic%20Killer%20page">Contact</a>
+                </div>
+            </section>
+        </main>
+        <footer id="footer-contents">
+            <p>© 2026 Hamachi the Psychotic Killer. All rights reserved.</p>
+        </footer>
     </div>
-
-    <div class="fidget-box" id="eightBallWidget">
-        <div class="fidget-title">Dev Fortune Teller</div>
-        <div class="ball-sphere" id="eightBall">CLICK ME</div>
-    </div>
-
-    <div class="fidget-box" id="bugSquisherWidget">
-        <div class="fidget-title">Bug Squisher</div>
-        <div class="bug-display" id="bugIcon">🪲</div>
-        <button class="squish-btn" id="squishBtn">SQUISH!</button>
-        <div class="bug-counter">Bugs Exterminated: <span id="bugCount">0</span></div>
-    </div>
-    <div class="page-purpose">a place where i share work in progress stuffs</div>
-
-    <div class="image-container" id="imageContainer">
-        <div class="date-time" id="dateTime"></div>
-        <img class="gallery-image" id="galleryImage" src="" alt="Game Image">
-        <div id="embedContainer"></div>
-        <div class="arrow left" id="leftArrow">&larr;</div>
-        <div class="arrow right" id="rightArrow">&rarr;</div>
-    </div>
-
-    <div class="description" id="description"></div>
-
-    <img src="https://gavinoriley.github.io/assets/OG1.gif" alt="" class="decorative-gif" id="gif1">
-    <img src="https://gavinoriley.github.io/assets/OG5.gif" alt="" class="decorative-gif" id="gif2">
-    <img src="https://gavinoriley.github.io/assets/OG3.gif" alt="" class="decorative-gif" id="gif3">
-    
-    <div class="music-player-container">
-        <div class="music-player-title">music that im listening to right now</div>
-        <iframe src="https://www.youtube.com/embed/aw2DMMtXWVY?list=PL_pMhvP2461aMfrmUovT6OoGirNI53JOx&index=3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <img src="https://gavinoriley.github.io/assets/OG4.gif" alt="" class="decorative-gif" id="gif4">
-    <img src="https://gavinoriley.github.io/assets/OG2.gif" alt="" class="decorative-gif" id="gif5">
-
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script>
-        const images = [
-            {
-                type: 'embed',
-                html: `<blockquote class="twitter-tweet" data-theme="dark"><p lang="und" dir="ltr">.<a href="https://x.com/BlumhouseGames?ref_src=twsrc%5Etfw">@BlumhouseGames</a> <a href="https://t.co/dE9FkUXug7">pic.twitter.com/dE9FkUXug7</a></p>&mdash; gavinoriley (@imgavinoriley) <a href="https://x.com/imgavinoriley/status/2061930293981003922?ref_src=twsrc%5Etfw">June 2, 2026</a></blockquote>`,
-                date: '2026-6-25T5:00:07-07:00',
-                ampm: 'PM',
-                description: "@BlumhouseGames"
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/Harlequin.png',
-                date: '2026-5-25T1:30:07-07:00',
-                ampm: 'AM',
-                description: "drafting ideas for future content in the chance i find a publisher for hamachi, majordomo (the first boss) would get a proper and unique \"minigame\" like scenario for his pacifist encounter much like the second boss. i would like to add a 9th world too, consisting of a southern gothic town aesthetic, the boss of world 9 would be demon queen deity's younger sister, harlequin hurly-burly highness, a demon taking the form of a human."
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev15.gif',
-                date: '2026-1-3T4:33:07-07:00',
-                ampm: 'PM',
-                description: 'wip costume room'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev14.gif',
-                date: '2025-12-31T1:00:07-07:00',
-                ampm: 'PM',
-                description: ''
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev13.gif',
-                date: '2025-09-25T4:10:07-07:00',
-                ampm: 'PM',
-                description: 'police mini boss'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev12.gif',
-                date: '2025-09-15T4:10:00-07:00',
-                ampm: 'PM',
-                description: '●︎□︎♍︎♋︎⧫︎♓︎□︎■︎ ♒︎♏︎●︎●'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev11.gif',
-                date: '2025-08-28T8:50:00-07:00',
-                ampm: 'PM',
-                description: '1,000 lines of code later, 2nd boss'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev10.gif',
-                date: '2025-08-28T1:00:00-07:00',
-                ampm: 'AM',
-                description: '(randomly) exploring'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev9.gif',
-                date: '2025-08-26T12:33:00-07:00',
-                ampm: 'PM',
-                description: 'interesting glitch'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev8.png',
-                date: '2025-08-22T6:18:00-07:00',
-                ampm: 'PM',
-                description: 'not sure what this game is coming to'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev7.png',
-                date: '2025-08-13T4:37:00-07:00',
-                ampm: 'PM',
-                description: 'pacify'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev6.png',
-                date: '2025-08-12T7:57:00-07:00',
-                ampm: 'AM',
-                description: 'added volume slider and options now save, updating game with this when next challenge level releases'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev5.png',
-                date: '2025-08-07T4:54:00-07:00',
-                ampm: 'PM',
-                description: ''
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev4.png',
-                date: '2025-08-07T4:31:00-07:00',
-                ampm: 'PM',
-                description: 'can now save and load games, insanity'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev3.png',
-                date: '2025-08-04T4:50:00-07:00',
-                ampm: 'PM',
-                description: 'programming a cinematic'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev2.png',
-                date: '2025-08-03T3:27:00-07:00',
-                ampm: 'PM',
-                description: 'happy fun time yippie'
-            },
-            {
-                type: 'image',
-                src: 'https://gavinoriley.github.io/assets/dev1.png',
-                date: '2025-08-02T02:06:00-07:00',
-                ampm: 'AM',
-                description: 'end world scene brainstorming.'
-            }
-        ];
-
-        let currentImageIndex = 0;
-        const imageContainer = document.getElementById('imageContainer');
-        const galleryImage = document.getElementById('galleryImage');
-        const embedContainer = document.getElementById('embedContainer');
-        const dateTime = document.getElementById('dateTime');
-        const description = document.getElementById('description');
-        const leftArrow = document.getElementById('leftArrow');
-        const rightArrow = document.getElementById('rightArrow');
-
-        function updateImage() {
-            const currentImage = images[currentImageIndex];
-            
-            if (currentImage.type === 'embed') {
-                imageContainer.classList.remove('enlarged');
-                imageContainer.classList.add('embed-active');
-                galleryImage.style.display = 'none';
-                embedContainer.style.display = 'flex';
-                embedContainer.innerHTML = currentImage.html;
-                
-                if (typeof twttr !== 'undefined' && twttr.widgets) {
-                    twttr.widgets.load(embedContainer);
-                }
-            } else {
-                imageContainer.classList.remove('embed-active');
-                embedContainer.style.display = 'none';
-                galleryImage.style.display = 'block';
-                galleryImage.src = currentImage.src;
-            }
-
-            if (currentImage.date && currentImage.date.trim() !== '') {
-                const dateParts = currentImage.date.split('T');
-                const date = dateParts[0];
-                let time = '';
-                if (dateParts[1]) {
-                    time = dateParts[1].split(':').slice(0, 2).join(':');
-                }
-                dateTime.textContent = `${date}, ${time} ${currentImage.ampm}`;
-            } else {
-                dateTime.textContent = 'Circa 2011 (Wayback Machine)';
-            }
-
-            description.textContent = currentImage.description || '';
-
-            leftArrow.style.display = currentImageIndex === 0 ? 'none' : 'block';
-            rightArrow.style.display = currentImageIndex === images.length - 1 ? 'none' : 'block';
-        }
-
-        updateImage();
-
-        galleryImage.addEventListener('click', () => {
-            imageContainer.classList.toggle('enlarged');
+        // Initialize Lenis with physics-based inertial scrolling
+        const lenis = new Lenis({
+            lerp: 0.08,
+            wheelMultiplier: 1.0,
+            touchMultiplier: 1.5,
+            smoothWheel: true,
+            smoothTouch: false,
+            autoRaf: true,
+            autoToggle: true,
+            anchors: true,
+            allowNestedScroll: true,
+            stopInertiaOnNavigate: true
         });
-
-        leftArrow.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                updateImage();
-            }
-        });
-
-        rightArrow.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (currentImageIndex < images.length - 1) {
-                currentImageIndex++;
-                updateImage();
-            }
-        });
-
-        const lightBtn = document.getElementById('lightBtn');
-        lightBtn.addEventListener('click', () => {
-            document.body.classList.toggle('lights-out');
-            if(document.body.classList.contains('lights-out')) {
-                lightBtn.textContent = "LIGHTS ON";
-            } else {
-                lightBtn.textContent = "LIGHTS OUT";
-            }
-        });
-
-        const eightBall = document.getElementById('eightBall');
-        const fortunes = [
-            "SHIP IT!", "IT'S A FEATURE", "BUG FOUND", "OUTLOOK GLITCHY", 
-            "WORKS ON MY MACHINE", "TRY REBOOTING", "CODE RED", "NEEDS CAFFEINE", 
-            "99 ERRORS LEFT", "COMPILING...", "DEPRECATED", "HARD REFRESH"
-        ];
-        eightBall.addEventListener('click', () => {
-            eightBall.classList.add('shake-anim');
-            eightBall.textContent = "...";
-            setTimeout(() => {
-                const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-                eightBall.textContent = randomFortune;
-                eightBall.classList.remove('shake-anim');
-            }, 400);
-        });
-
-        const bugIcon = document.getElementById('bugIcon');
-        const squishBtn = document.getElementById('squishBtn');
-        const bugCountDisplay = document.getElementById('bugCount');
-        const bugTypes = ['🪲', '🐛', '🐜', '🕷️', '🦟'];
-        let bugCount = 0;
-
-        squishBtn.addEventListener('click', () => {
-            bugIcon.textContent = '💥';
-            bugCount++;
-            bugCountDisplay.textContent = bugCount;
-            
-            setTimeout(() => {
-                const nextBug = bugTypes[Math.floor(Math.random() * bugTypes.length)];
-                bugIcon.textContent = nextBug;
-            }, 250);
-        });
+        console.log('%c✅ Lenis inertial smooth scroll initialized', 'color: #ffdd88; font-family: monospace;');
     </script>
 </body>
 </html>
