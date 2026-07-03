@@ -48,8 +48,7 @@
             position: relative;
             overflow-x: hidden;
         }
-        
-        /* Lenis Core Settings */
+        /* Lenis Recommended Styles */
         html.lenis {
             height: auto;
         }
@@ -59,215 +58,177 @@
         .lenis.lenis-stopped {
             overflow: hidden;
         }
-
-        /* === FLOATING HUD NAVBAR (Screenshot UI Inspired) === */
+        /* === NAVBAR === */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            padding: 24px 40px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            padding: 9px 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 48px;
             z-index: 100;
-            pointer-events: none; /* Allows canvas interactions beneath if needed */
-        }
-        .nav-left-group, .nav-right-group {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            pointer-events: auto; /* Re-enables links */
+            border-bottom: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
         }
         .navbar a {
-            color: rgba(255, 255, 255, 0.8);
+            color: #fff;
             text-decoration: none;
-            font-size: 20px;
-            letter-spacing: 0.05em;
-            transition: color 0.25s ease;
+            font-size: 24px;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.3s ease;
         }
         .navbar a:hover {
-            color: #ffffff;
+            color: #cccccc;
         }
-
-        /* Solid Pill CTA Button Layout mimicking 'Get Tickets' */
         .navbar a.buy-game-link {
-            color: #ffffff;
-            background-color: #b62121; /* High-intensity cinematic red */
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: normal;
-            font-size: 18px;
-            letter-spacing: 0.05em;
-            transition: background-color 0.25s ease, transform 0.25s ease;
+            color: #ffdd88;
         }
         .navbar a.buy-game-link:hover {
-            background-color: #d42d2d;
-            transform: scale(1.03);
+            color: #e6b55c;
         }
-
-        /* Dev Room Pulsing Effect */
+        /* DEV ROOM - Demonic Deep Blood Red Pulsing Aura */
         .navbar a.dev-room-link {
+            color: #fff;
             position: relative;
-            animation: demonic-glow-pulse 2s ease-in-out infinite;
+            z-index: 1;
+            animation: demonic-glow-pulse 1.8s ease-in-out infinite;
+        }
+        .navbar a.dev-room-link:hover {
+            color: #ffcccc;
         }
         @keyframes demonic-glow-pulse {
-            0%, 100% { text-shadow: 0 0 6px #ff4444, 0 0 12px #ff0000; color: #ff5555; }
-            50% { text-shadow: 0 0 14px #ff4444, 0 0 25px #ff0000; color: #ffffff; }
-        }
-
-        /* === UNBROKEN SEAMLESS CONTENT LAYOUT === */
-        #wrapper {
-            width: 100%;
-        }
-        main id="container" {
-            width: 100%;
+            0%, 100% {
+                text-shadow:
+                    0 0 8px #ff4444,
+                    0 0 18px #ff4444,
+                    0 0 35px #ff0000;
+            }
+            50% {
+                text-shadow:
+                    0 0 20px #ff4444,
+                    0 0 40px #ff4444,
+                    0 0 70px #ff0000,
+                    0 0 100px #ff8866,
+                    0 0 130px #ff4444,
+                    0 0 160px #ff0000;
+            }
         }
         section {
-            width: 100%;
+            width: 100vw;
+            min-height: 600px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             position: relative;
-            background-color: #000000;
-            display: block;
-            line-height: 0; /* Eradicates unwanted gaps between vertical images */
         }
-        section img, section iframe {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Hero Container Area */
         .title-section {
-            position: relative;
-        }
-        
-        /* Floating Interface Pill Actions Over Hero Image */
-        .hero-ui-overlay {
-            position: absolute;
-            bottom: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 16px;
-            z-index: 10;
-            line-height: normal; /* Resating default layout flow inside button container */
-        }
-        
-        /* Outlined Action Capsular Buttons inspired by 'Watch Trailer' style */
-        .ui-pill-btn {
-            background: rgba(0, 0, 0, 0.4);
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 12px 28px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50px;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            transition: border-color 0.25s ease, background-color 0.25s ease;
-            white-space: nowrap;
-        }
-        .ui-pill-btn:hover {
-            border-color: #b62121;
-            background: rgba(182, 33, 33, 0.15);
-        }
-
-        /* Seamless Infinite Carousel Stretch */
-        .carousel {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
             background-color: #000000;
-            padding: 10px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0;
+            min-height: 0;
         }
-        .carousel-inner {
-            display: flex;
-            width: max-content;
-            animation: scroll 40s linear infinite;
-        }
-        .carousel-inner img {
-            width: calc(100vw / 3);
+        .news-section, .video-section, .about-section, .roadblock-section,
+        .characters-section, .worlds-section, .business-section {
+            background-color: #000000;
+            color: #fff;
             height: auto;
-            object-fit: cover;
+            padding: 0;
+            min-height: 0;
         }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Video Section Widescreen Frame */
         .video-section iframe {
             aspect-ratio: 16 / 9;
             border: none;
         }
-
-        /* === MINIMAL HUD UTILITY FOOTER === */
         .business-section {
-            background-color: #000000;
-            padding: 60px 40px;
-            line-height: normal;
-        }
-        .business-links {
+            padding: 20px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
+        }
+        .business-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
         }
         .business-links a {
-            color: rgba(255, 255, 255, 0.5);
+            color: #fff;
             text-decoration: none;
             font-size: 16px;
-            letter-spacing: 0.05em;
-            transition: color 0.25s ease;
+            text-shadow: 1px 1px 2px black;
         }
         .business-links a:hover {
-            color: #ffffff;
+            color: #ddd;
         }
-        
+        .title-section img,
+        .news-section img,
+        .video-section iframe,
+        .about-section img,
+        .roadblock-section img,
+        .characters-section img,
+        .worlds-section img {
+            width: 100vw;
+            height: auto;
+            display: block;
+        }
+        .carousel {
+            width: 100vw;
+            height: calc(100vw * 3 / 16);
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-inner {
+            display: flex;
+            animation: scroll 40s linear infinite;
+        }
+        .carousel-inner img {
+            width: calc(100vw / 3);
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-100vw * 11 / 3)); }
+        }
         footer {
             background-color: #000000;
-            color: rgba(255, 255, 255, 0.3);
+            color: #fff;
             text-align: center;
-            padding: 0 20px 40px 20px;
+            padding: 10px 0;
             font-size: 14px;
-            letter-spacing: 0.05em;
-            line-height: normal;
         }
-
-        /* === MOBILE HUD RESPONSIVENESS === */
         @media screen and (max-width: 768px) {
             .navbar {
-                padding: 16px 20px;
-            }
-            .nav-left-group {
-                gap: 15px;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 8px 0;
             }
             .navbar a {
                 font-size: 16px;
             }
-            .navbar a.buy-game-link {
-                padding: 8px 16px;
-                font-size: 15px;
-            }
-            .hero-ui-overlay {
-                bottom: 15%;
-                width: 90%;
-                justify-content: center;
-                gap: 10px;
-            }
-            .ui-pill-btn {
-                padding: 10px 20px;
-                font-size: 15px;
-            }
-            .carousel-inner img {
-                width: calc(100vw / 2);
+            .navbar a.play-game-link {
+                display: none;
             }
             .business-links {
-                gap: 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            .business-links a {
+                font-size: 12px;
+            }
+            section {
+                padding: 10px;
+                min-height: auto;
+            }
+            .title-section {
+                padding-top: 60px;
             }
         }
     </style>
@@ -295,32 +256,16 @@
     </script>
 </head>
 <body>
-
-    <!-- HUD Overlay Top Bar (Inspired by Upper Layer Layout of Screenshot 2026-07-03 at 3.59.29 AM.jpg) -->
     <nav class="navbar">
-        <div class="nav-left-group">
-            <a href="https://hamachithepsychotickiller.com/about/">GAME INFO</a>
-            <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link">DEV ROOM</a>
-        </div>
-        <div class="nav-right-group">
-            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="buy-game-link">BUY GAME</a>
-        </div>
+        <a href="https://hamachithepsychotickiller.com/about/">GAME INFO</a>
+        <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="buy-game-link">BUY GAME</a>
+        <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="play-game-link">PLAY ONLINE DEMO</a>
+        <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link">DEV ROOM</a>
     </nav>
-
     <div id="wrapper">
         <main id="container">
-            
-            <!-- Hero Artwork Frame -->
             <section class="title-section">
                 <img src="https://gavinoriley.github.io/assets/ScreenshotHomePage.png" alt="Hamachi the Psychotic Killer game title logo">
-                
-                <!-- Center Floating Pill Interface Options -->
-                <div class="hero-ui-overlay">
-                    <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="ui-pill-btn">Play Online Demo</a>
-                    <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="ui-pill-btn">Wishlist on Steam</a>
-                </div>
-
-                <!-- Unbroken Filmstrip Reel -->
                 <div class="carousel">
                     <div class="carousel-inner">
                         <img src="https://gavinoriley.github.io/assets/finalcara1.jpg" alt="Gameplay screenshot from Hamachi the Psychotic Killer">
@@ -334,7 +279,6 @@
                         <img src="https://gavinoriley.github.io/assets/finalcara9.jpg" alt="Additional gameplay screenshot from Hamachi the Psychotic Killer">
                         <img src="https://gavinoriley.github.io/assets/finalcara10.jpg" alt="Another in-game environment from Hamachi the Psychotic Killer">
                         <img src="https://gavinoriley.github.io/assets/finalcara11.jpg" alt="Extended promotional image for Hamachi the Psychotic Killer">
-                        <!-- Cloned sequence loop sets up smooth scroll baseline -->
                         <img src="https://gavinoriley.github.io/assets/finalcara1.jpg" alt="Gameplay screenshot from Hamachi the Psychotic Killer">
                         <img src="https://gavinoriley.github.io/assets/finalcara2.jpg" alt="In-game environment from Hamachi the Psychotic Killer">
                         <img src="https://gavinoriley.github.io/assets/finalcara3.jpg" alt="Character action scene from Hamachi the Psychotic Killer">
@@ -349,35 +293,26 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Complete Unbroken Full-Bleed Content Sequence -->
             <section class="news-section">
                 <a href="https://x.com/imgavinoriley/status/2068302846442000537" target="_blank" rel="noopener noreferrer">
-                    <img src="https://gavinoriley.github.io/assets/FinalClipBannerclickme.png" alt="Hamachi the Psychotic Killer Broadcast Banner">
+                    <img src="https://gavinoriley.github.io/assets/FinalClipBannerclickme.png" alt="Hamachi the Psychotic Killer">
                 </a>
             </section>
-
             <section class="video-section">
-                <iframe src="https://www.youtube.com/embed/VbFZFto8Naw" title="Hamachi the Psychotic Killer - Gameplay Trailer #2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/VbFZFto8Naw" title="Hamachi the Psychotic Killer - Gameplay Trailer #2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </section>
-
             <section class="roadblock-section">
                 <img src="https://gavinoriley.github.io/assets/3BLOCkRESTHAMACHI.png" alt="Roadblock and gameplay features for Hamachi the Psychotic Killer">
             </section>
-
             <section class="about-section">
                 <img src="https://gavinoriley.github.io/assets/FinalIntroduction.png" alt="Introduction screenshot for Hamachi the Psychotic Killer">
             </section>
-
             <section class="characters-section">
                 <img src="https://gavinoriley.github.io/assets/FinalCharacters.png" alt="Character lineup for Hamachi the Psychotic Killer">
             </section>
-
             <section class="worlds-section">
                 <img src="https://gavinoriley.github.io/assets/FinalWorlds2.png" alt="World environments in Hamachi the Psychotic Killer">
             </section>
-
-            <!-- Utility Navigation Frame -->
             <section class="business-section">
                 <div class="business-links">
                     <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/cbeecc8fd965c68b6d64b82a593dafd5da4b0412/2hamachi-the-psychotic-killer-manual.pdf?t=1746692821" target="_blank">Game Manual</a>
@@ -388,14 +323,13 @@
                 </div>
             </section>
         </main>
-        
         <footer id="footer-contents">
             <p>© 2026 Hamachi the Psychotic Killer. All rights reserved.</p>
         </footer>
     </div>
-
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script>
+        // Initialize Lenis with physics-based inertial scrolling
         const lenis = new Lenis({
             lerp: 0.08,
             wheelMultiplier: 1.0,
@@ -412,3 +346,4 @@
     </script>
 </body>
 </html>
+
