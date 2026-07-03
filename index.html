@@ -72,7 +72,7 @@
             flex-direction: column;
             justify-content: space-between;
             z-index: 200;
-            mix-blend-mode: difference; /* Ensures visibility over light or dark background elements */
+            mix-blend-mode: difference;
         }
         .menu-toggle span {
             display: block;
@@ -156,13 +156,14 @@
             height: 25px;
             width: auto;
             display: block;
-            transition: opacity 0.3s ease;
+            opacity: 1; /* Fixes immediate layout-swap on mouse entry */
+            transition: opacity 0.3s ease-in-out; /* Symmetrical fading curve both ways */
         }
         .hero-socials a:hover img {
-            opacity: 0.5; /* Clean aesthetic shift from pure white to modern grey */
+            opacity: 0.5;
         }
 
-        /* === TITLE / HERO SECTION (RESTORED TO ORIGINAL FULL WIDTH) === */
+        /* === TITLE / HERO SECTION === */
         .title-section {
             background-color: #000000;
             padding: 0;
@@ -224,7 +225,6 @@
             color: #fff;
         }
         
-        /* Restored original universal 100vw presentation */
         .title-section img,
         .news-section img,
         .video-section iframe,
@@ -434,7 +434,6 @@
     
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script>
-        // Initialize Lenis with physics-based inertial scrolling
         const lenis = new Lenis({
             lerp: 0.08,
             wheelMultiplier: 1.0,
@@ -447,9 +446,7 @@
             allowNestedScroll: true,
             stopInertiaOnNavigate: true
         });
-        console.log('%c✅ Lenis inertial smooth scroll initialized', 'color: #ffdd88; font-family: monospace;');
 
-        // Hamburger Navigation Logic
         const menuToggle = document.querySelector('.menu-toggle');
         const navOverlay = document.querySelector('.nav-overlay');
         const menuLinks = document.querySelectorAll('.menu-link');
