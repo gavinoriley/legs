@@ -26,6 +26,14 @@
     <link rel="preconnect" href="https://www.youtube.com">
     <link rel="preconnect" href="https://store.steampowered.com">
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
+    
+    <script>
+        // Safari detection to exclude Safari from 10% UI scaling
+        if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+            document.documentElement.classList.add('is-safari');
+        }
+    </script>
+
     <style>
         @font-face {
             font-family: 'FSEX300';
@@ -78,18 +86,18 @@
             100% { transform: translateY(-100%); }
         }
 
-        /* === TOP GRADIENT SHADOW (UPDATED) === */
+        /* === TOP GRADIENT SHADOW === */
         .top-shadow {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
-            height: 140px; /* Reduced height to take up less screen space */
+            height: 140px;
             background: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
                 rgba(0,0,0,0.0) 0%, 
                 rgba(0,0,0,0.0) 0%, 
-                rgba(0,0,0,0) 0%); /* Accelerated falloff to prevent bleeding */
+                rgba(0,0,0,0) 0%);
             pointer-events: none;
             z-index: 105;
         }
@@ -108,6 +116,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 200;
+            transform: scale(0.9);
+            transform-origin: top left;
         }
         .menu-toggle span {
             display: block;
@@ -130,8 +140,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 150;
             display: flex;
             flex-direction: column;
@@ -143,8 +154,21 @@
         }
         .nav-overlay.open { opacity: 1; visibility: visible; }
         
+        /* Interactive Background Canvas for Menu Effect */
+        #menuBgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* Layout Wrappers inside Menu Overlay */
         .nav-links-wrapper {
+            position: relative;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -165,13 +189,21 @@
             text-decoration: none;
             font-size: 36px;
             letter-spacing: 2px;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: color 0.3s ease;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
-        .nav-overlay a:hover { color: #ff4444; transform: scale(1.05); }
-        .nav-overlay a.dev-room-link { animation: demonic-glow-pulse 1.8s ease-in-out infinite; }
+        .nav-overlay a:nth-child(1):hover { color: #ff5577; }
+        .nav-overlay a:nth-child(2):hover { color: #00e676; }
+        .nav-overlay a:nth-child(3):hover { color: #38b6ff; }
+        .nav-overlay a:nth-child(4):hover { color: #ffd700; }
+        .nav-overlay a:nth-child(5):hover { color: #ff5577; }
+        .nav-overlay a:nth-child(6):hover { color: #00e676; }
+        .nav-overlay a:nth-child(7):hover { color: #38b6ff; }
+        .nav-overlay a:nth-child(8):hover { color: #ffd700; }
 
         /* === SYNOPSIS DIGEST GRID === */
         .synopsis-container {
+            z-index: 10;
             display: flex;
             width: 90%;
             max-width: 1100px;
@@ -229,7 +261,7 @@
         }
         .synopsis-right {
             flex: 0.8;
-            border-left: 1px solid #222;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
             padding-left: 45px;
             display: flex;
             flex-direction: column;
@@ -256,6 +288,7 @@
 
         /* === DEFINITIVE VERSION PANEL STYLES === */
         .definitive-container {
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -295,15 +328,153 @@
             font-style: italic;
         }
 
+        /* === PUBLISHING OPPORTUNITY PANEL STYLES === */
+        .pub-op-container {
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+            position: absolute;
+            gap: 24px;
+            padding: 20px 10px;
+        }
+        .pub-op-container.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            position: relative;
+            transform: translateY(0);
+        }
+        .pub-op-header {
+            text-align: center;
+            border-bottom: 1px solid rgba(204, 17, 17, 0.4);
+            padding-bottom: 16px;
+            width: 100%;
+        }
+        .pub-op-title {
+            font-size: 32px;
+            color: #cc1111;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .pub-op-intro {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .pub-op-section-title {
+            font-size: 20px;
+            color: #ff5577;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            border-left: 3px solid #cc1111;
+            padding-left: 10px;
+        }
+        .pub-op-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            width: 100%;
+        }
+        .pub-op-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 16px;
+        }
+        .pub-op-card h4 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .pub-op-card p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #cccccc;
+        }
+        .pub-op-flexible {
+            background: rgba(204, 17, 17, 0.08);
+            border: 1px solid rgba(204, 17, 17, 0.3);
+            border-radius: 4px;
+            padding: 18px;
+            width: 100%;
+        }
+        .pub-op-flexible h4 {
+            font-size: 18px;
+            color: #ff5577;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .pub-op-flexible p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #dddddd;
+        }
+        .pub-op-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .pub-op-cta-label {
+            font-size: 22px;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        .btn-pub-touch {
+            display: inline-block;
+            background-color: #00e676;
+            color: #000000;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 12px 32px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            box-shadow: 0px 4px 0px #000000;
+            transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-pub-touch:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 0px #000000;
+        }
+        .btn-pub-touch:active {
+            transform: translateY(2px);
+            box-shadow: 0px 2px 0px #000000;
+        }
+
         /* === FIRST SCREEN SOCIAL DOCK === */
         .hero-socials {
             position: fixed;
             top: 40px; 
             right: 40px; 
             display: flex;
-            gap: 20px;
+            gap: 18px;
             z-index: 110;
             align-items: center;
+            transform: scale(0.9);
+            transform-origin: top right;
         }
         .hero-socials a { display: flex; align-items: center; text-decoration: none; }
         .hero-socials img {
@@ -316,6 +487,12 @@
             transform: translateZ(0);
         }
         .hero-socials a:hover img { opacity: 0.5; }
+
+        /* === SAFARI EXCLUSION OVERRIDE === */
+        .is-safari .menu-toggle,
+        .is-safari .hero-socials {
+            transform: none;
+        }
 
         /* === INTEGRATED DROPDOWN SHARE ARCHITECTURE === */
         .share-wrapper {
@@ -347,12 +524,13 @@
             position: absolute;
             top: 45px;
             right: 0;
-            background: rgba(11, 11, 13, 0.95);
-            border: 1.5px solid #cc1111;
+            background: linear-gradient(rgba(11, 11, 13, 0.95), rgba(11, 11, 13, 0.95)) padding-box,
+                        linear-gradient(to right, #ff5577, #00e676, #38b6ff, #ffd700) border-box;
+            border: 2px solid transparent;
             border-radius: 4px;
             width: 220px;
             padding: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(204, 17, 17, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: flex;
@@ -385,10 +563,25 @@
             letter-spacing: 0.5px;
             transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
-        .share-opt-link:hover {
-            background: rgba(204, 17, 17, 0.15);
-            border-color: #ff3333;
-            color: #ff4444;
+        .share-card .share-opt-link:nth-child(1):hover {
+            background: rgba(255, 85, 119, 0.15);
+            border-color: #ff5577;
+            color: #ff5577;
+        }
+        .share-card .share-opt-link:nth-child(2):hover {
+            background: rgba(0, 230, 118, 0.15);
+            border-color: #00e676;
+            color: #00e676;
+        }
+        .share-card .share-opt-link:nth-child(3):hover {
+            background: rgba(56, 182, 255, 0.15);
+            border-color: #38b6ff;
+            color: #38b6ff;
+        }
+        .share-card .share-opt-link:nth-child(4):hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #ffd700;
+            color: #ffd700;
         }
         .share-opt-link svg {
             width: 16px;
@@ -406,13 +599,14 @@
             position: absolute;
             top: 45px;
             right: 0;
-            background: rgba(11, 11, 13, 0.95);
-            border: 1.5px solid #cc1111;
+            background: linear-gradient(rgba(11, 11, 13, 0.95), rgba(11, 11, 13, 0.95)) padding-box,
+                        linear-gradient(to right, #ff5577, #00e676, #38b6ff, #ffd700) border-box;
+            border: 2px solid transparent;
             border-radius: 4px;
             width: auto;
             white-space: nowrap;
             padding: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(204, 17, 17, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: flex;
@@ -486,9 +680,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 24px;
+            gap: 22px;
             width: 85%;
-            max-width: 750px;
+            max-width: 720px;
         }
 
         .hero-content-wrapper img {
@@ -497,34 +691,66 @@
             display: block;
         }
 
+        /* === RETRO CHUNKY ARCADE ACTION BUTTONS === */
         .hero-action-row {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 16px;
             width: 100%;
+            flex-wrap: wrap;
         }
 
         .pill-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.45);
-            color: #ffffff;
-            border: 1.5px solid #cc1111; 
-            padding: 10px 28px;
-            font-size: 18px;
+            border: 3px solid #000000; 
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 17px;
+            font-weight: 800;
             letter-spacing: 1px;
-            border-radius: 50px;
+            text-transform: uppercase;
             text-decoration: none;
-            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 4px 0px #000000;
+            transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.15s ease;
+        }
+
+        .pill-btn.btn-trailer {
+            background-color: #ff5577;
+            color: #ffffff;
+            text-shadow: 2px 2px 0px #000000;
+        }
+
+        .pill-btn.btn-demo {
+            background-color: #00e676;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .pill-btn.btn-buy {
+            background-color: #38b6ff;
+            color: #ffffff;
+            text-shadow: 2px 2px 0px #000000;
+        }
+
+        .pill-btn.btn-cube {
+            background-color: #ffd700;
+            color: #000000;
+            text-shadow: none;
         }
 
         .pill-btn:hover {
-            background-color: rgba(204, 17, 17, 0.2);
-            border-color: #ff3333;
-            transform: translateY(-1px);
+            filter: brightness(1.15);
+            transform: translateY(-3px);
+            box-shadow: 0px 7px 0px #000000;
+        }
+
+        .pill-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0px 2px 0px #000000;
         }
 
         /* === OPTIMIZED THEATER MODAL BOX === */
@@ -581,12 +807,71 @@
             font-size: 38px;
             line-height: 1;
             cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
+            transition: color 0.2s ease;
         }
 
         .modal-close-btn:hover {
             color: #ff3333;
-            transform: scale(1.1);
+        }
+
+        /* === MOBILE DEMO NOTICE POPUP MODAL === */
+        .mobile-demo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 4000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .mobile-demo-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-demo-box {
+            position: relative;
+            width: 90%;
+            max-width: 380px;
+            background-color: #000000;
+            border: 2px solid #cc1111;
+            border-radius: 6px;
+            padding: 24px 18px;
+            box-shadow: 0 0 35px rgba(204, 17, 17, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .mobile-demo-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .mobile-demo-text {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
         }
 
         @keyframes demonic-glow-pulse {
@@ -686,24 +971,50 @@
             .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
             .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-            .top-shadow { height: 60px; } /* Reduced from 120px to scale nicely with desktop */
+            .top-shadow { height: 60px; }
             .nav-overlay a { font-size: 26px; }
-            .hero-socials { top: 30px; right: 30px; gap: 16px; }
+            .hero-socials { top: 30px; right: 30px; gap: 16px; transform: none; }
             .hero-socials img { height: 26px; }
             .share-trigger-btn svg { width: 26px; height: 26px; }
             .share-card { top: 38px; right: 0; }
-            .x-hover-card { top: 38px; right: 0; }
+
+            /* Center Hashtag Popup Box Horizontally on Mobile */
+            .x-hover-card {
+                position: fixed;
+                top: 70px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%) translateY(-10px);
+            }
+            .x-hover-wrapper:hover .x-hover-card {
+                transform: translateX(-50%) translateY(0);
+            }
+
             .title-section { padding-top: 0; }
             .hero-video-container { height: 60vh; }
             
+            /* Compact 2x2 Button Grid on Mobile */
             .hero-action-row {
-                flex-direction: column;
-                gap: 12px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px 10px;
+                width: 92%;
+                max-width: 380px;
+                margin: 0 auto;
             }
             .pill-btn {
-                width: 80%;
-                font-size: 16px;
-                padding: 8px 20px;
+                width: calc(50% - 5px);
+                font-size: 13px;
+                padding: 8px 6px;
+                letter-spacing: 0.5px;
+                border-width: 2px;
+                box-shadow: 0px 3px 0px #000000;
+                white-space: nowrap;
+            }
+            .pill-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0px 5px 0px #000000;
             }
 
             .modal-close-btn {
@@ -725,10 +1036,21 @@
             .synopsis-right {
                 border-left: none;
                 padding-left: 0;
-                border-top: 1px solid #222;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
                 padding-top: 20px;
                 gap: 12px;
             }
+
+            .pub-op-container.active {
+                width: 92%;
+                max-height: 80vh;
+                padding: 10px 5px;
+            }
+            .pub-op-title { font-size: 24px; }
+            .pub-op-intro { font-size: 16px; }
+            .pub-op-section-title { font-size: 17px; }
+            .pub-op-grid { grid-template-columns: 1fr; }
+            .btn-pub-touch { font-size: 16px; padding: 10px 24px; }
             
             .metadata-row { font-size: 15px; white-space: normal; }
             .metadata-row strong { width: 110px; flex-shrink: 0; }
@@ -777,14 +1099,18 @@
     </button>
 
     <nav class="nav-overlay" id="mainNavOverlay">
+        <!-- Floating Retro Shape Collision Canvas -->
+        <canvas id="menuBgCanvas"></canvas>
+
         <div class="nav-links-wrapper" id="menuLinksWrapper">
             <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">GAME INFO</a>
-            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link mobile-hide">PLAY ONLINE DEMO</a>
+            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link mobile-hide">PLAY DEMO</a>
             <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">BUY GAME</a>
  
-            <a href="https://hamachithepsychotickiller.com/devroom/" class="dev-room-link menu-link">DEV ROOM</a>
+            <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link">DEV ROOM</a>
             <a href="mailto:img.oriley@gmail.com?subject=Contact%20from%20Hamachi%20the%20Psychotic%20Killer%20page" class="menu-link">CONTACT</a>
             <a href="#" class="menu-link" id="synopsisTriggerBtn">SYNOPSIS</a>
+            <a href="https://gavinoriley.github.io/assets/HamaWallPaper.zip" download="HamachiWallpaper.zip" class="menu-link mobile-hide">WALLPAPER</a>
             <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/cbeecc8fd965c68b6d64b82a593dafd5da4b0412/2hamachi-the-psychotic-killer-manual.pdf?t=1746692821" target="_blank" class="menu-link" style="font-size: 20px; color: #888;">GAME MANUAL</a>
         </div>
 
@@ -799,7 +1125,7 @@
     
                     <li>Defeat or pacify demonic bosses, pacified bosses will join your side.</li>
                     <li>Journey through 8 visually distinct worlds built with original pixel art.</li>
-                    <li>Chainsaw power-up grants temporary invincibility and destroys any being you touch.</li>
+                    <li>Chainsaw power-up, <em>The Psycho Saw</em>, grants temporary invincibility and destroys any being you touch.</li>
                     <li>Collect souls from dead civilians or sushi dropped by Penelope Pom Pom Pink to restore health.</li>
                     <li>Your crimes will not go unnoticed by the authorities.</li>
                 </ul>
@@ -822,6 +1148,41 @@
          
             <p class="definitive-desc">While the full game is complete and publicly available, I continue to experiment, polish, and develop new content beyond the public release. While I won't name a release date just yet, if you're curious to see some of what I'm doing, check out the DEV ROOM page as I <em>sometimes</em> post on there.</p>
         </div>
+
+        <div class="pub-op-container" id="pubOpContentPanel">
+            <div class="pub-op-header">
+                <h2 class="pub-op-title">PUBLISHING OPPORTUNITY</h2>
+                <p class="pub-op-intro"><strong>Hamachi the Psychotic Killer</strong> is a completed game, released in February 2026. The game is fully playable and available today. I'm open to exploring publishing partnerships that could help expand Hamachi's reach and further develop the game beyond its current release.</p>
+            </div>
+
+            <div style="width: 100%;">
+                <h3 class="pub-op-section-title">Opportunities</h3>
+                <div class="pub-op-grid">
+                    <div class="pub-op-card">
+                        <h4>Original Soundtrack</h4>
+                        <p>An expanded original soundtrack could further strengthen Hamachi's musical identity and atmosphere.</p>
+                    </div>
+                    <div class="pub-op-card">
+                        <h4>Visual Polish</h4>
+                        <p>Additional sprite work, animation, and visual polish could further enhance the game's presentation and world.</p>
+                    </div>
+                    <div class="pub-op-card">
+                        <h4>Expansion & New Opportunities</h4>
+                        <p>There are opportunities to take Hamachi further through additional content, a definitive edition, new platforms, localization, or other directions that make sense for the game.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-op-flexible">
+                <h4>A Flexible Opportunity</h4>
+                <p>The opportunities above are not requirements for a publishing partnership. They represent potential directions for Hamachi if the right partnership and resources are available. I'm open to discussing what makes sense for the game and the partner involved.</p>
+            </div>
+
+            <div class="pub-op-cta">
+                <span class="pub-op-cta-label">Interested?</span>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="btn-pub-touch">Get in Touch</a>
+            </div>
+        </div>
     </nav>
 
     <div class="hero-socials">
@@ -838,7 +1199,7 @@
         <a href="https://www.youtube.com/@hamachithepsychotickiller" target="_blank" rel="noopener noreferrer" aria-label="Hamachi the Psychotic Killer YouTube Channel">
             <img src="https://gavinoriley.github.io/assets/whiteyoutube.png" alt="YouTube Icon">
         </a>
-        <a href="https://www.tiktok.com/@hamachithepsychokiller" target="_blank" rel="noopener noreferrer" aria-label="Hamachi the Psychotic Killer TikTok Profile">
+        <a href="https://www.tiktok.com/@hamachi_psychotickiller" target="_blank" rel="noopener noreferrer" aria-label="Hamachi the Psychotic Killer TikTok Profile">
             <img src="https://gavinoriley.github.io/assets/whitetiktok.png" alt="TikTok Icon">
         </a>
         <a href="https://hamachithepsychotickiller.com/possession/" aria-label="Possession">
@@ -885,13 +1246,21 @@
         </div>
     </div>
 
+    <!-- === MOBILE DEMO NOTICE MODAL === -->
+    <div class="mobile-demo-modal" id="mobileDemoModal">
+        <div class="mobile-demo-box">
+            <img src="https://gavinoriley.github.io/assets/hamademonflip1.png" alt="Hamachi Mobile Notice" class="mobile-demo-img">
+            <p class="mobile-demo-text">Sorry! This demo can not be played on Mobile Devices!</p>
+        </div>
+    </div>
+
     <div id="wrapper">
         <main id="container">
             <section class="title-section">
                 <div class="hero-video-container">
                     <div class="video-background">
                   
-                        <video autoplay muted loop playsinline preload="auto">
+                        <video autoplay muted loop playsinline disablePictureInPicture preload="auto">
                             <source src="https://gavinoriley.github.io/assets/HamachiCommercialCut.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -903,11 +1272,11 @@
               
                             <img src="https://gavinoriley.github.io/assets/newScreenHomePageOver.png" alt="Hamachi the Psychotic Killer game title logo">
                             
-                           <div class="hero-action-row">
-                                <a href="#" class="pill-btn" onclick="openTrailerModal(event)">Watch Trailer</a>
-                               <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" rel="noopener noreferrer" class="pill-btn">Play Demo</a>
-                                <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer" class="pill-btn">Buy Game</a>
-                               <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/4d24f19e6c5b25a41f86c5655abce55091d9eebc/hamachicube.pdf?t=1746692821" target="_blank" rel="noopener noreferrer" class="pill-btn">Hamachi Cube</a>
+                            <div class="hero-action-row">
+                                <a href="#" class="pill-btn btn-trailer" onclick="openTrailerModal(event)">Watch Trailer</a>
+                                <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" rel="noopener noreferrer" class="pill-btn btn-demo">Play Demo</a>
+                                <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer" class="pill-btn btn-buy">Buy Game</a>
+                                <a href="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3355690/manuals/4d24f19e6c5b25a41f86c5655abce55091d9eebc/hamachicube.pdf?t=1746692821" target="_blank" rel="noopener noreferrer" class="pill-btn btn-cube">Hamachi Cube</a>
                             </div>
                    
                         </div>
@@ -948,8 +1317,8 @@
             </section>
             
             <section class="news-section">
-                <a href="https://x.com/imgavinoriley/status/2068302846442000537" target="_blank" rel="noopener noreferrer">
-                    <img src="https://gavinoriley.github.io/assets/FinalClipBannerclickme.png" alt="Hamachi the Psychotic Killer">
+                <a href="#" id="corPubOpTrigger" style="cursor: pointer; display: block;">
+                    <img src="https://gavinoriley.github.io/assets/CorPubOp.png" alt="Hamachi the Psychotic Killer Publishing Opportunity">
                 </a>
             </section>
             
@@ -994,7 +1363,6 @@
             wheelMultiplier: 1.0,
             touchMultiplier: 1.5,
             smoothWheel: true,
-         
             smoothTouch: false,
             autoRaf: true,
             autoToggle: true,
@@ -1002,6 +1370,232 @@
             allowNestedScroll: true,
             stopInertiaOnNavigate: true
         });
+
+        /* === RETRO MENU FLOATING SHAPES BACKGROUND ANIMATION ENGINE === */
+        const canvas = document.getElementById('menuBgCanvas');
+        const ctx = canvas.getContext('2d');
+        let animFrameId = null;
+        let shapesArr = [];
+        let particlesArr = [];
+
+        const PALETTE = [
+            { top: '#ff5577', side: '#cc3355', darkSide: '#992244' }, // Red/Pink
+            { top: '#00e676', side: '#00b359', darkSide: '#008040' }, // Green
+            { top: '#38b6ff', side: '#2080cc', darkSide: '#155599' }, // Sky Blue
+            { top: '#ffd700', side: '#ccac00', darkSide: '#998000' }, // Yellow
+            { top: '#a155ff', side: '#7733cc', darkSide: '#552299' }, // Purple
+            { top: '#a0a0a0', side: '#707070', darkSide: '#404040' }  // Silver/Grey
+        ];
+
+        function resizeMenuCanvas() {
+            if (!canvas) return;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeMenuCanvas);
+
+        function drawIsometricDiamond(x, y, size, color, alpha, rotation = 0) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.translate(x, y);
+
+            // Apply slow visual rotation around shape center
+            if (rotation !== 0) {
+                ctx.rotate(rotation);
+            }
+
+            // Top Face
+            ctx.fillStyle = color.top;
+            ctx.beginPath();
+            ctx.moveTo(0, -size * 0.5);
+            ctx.lineTo(size, 0);
+            ctx.lineTo(0, size * 0.5);
+            ctx.lineTo(-size, 0);
+            ctx.closePath();
+            ctx.fill();
+
+            // Left Side Face (Shaded)
+            ctx.fillStyle = color.side;
+            ctx.beginPath();
+            ctx.moveTo(-size, 0);
+            ctx.lineTo(0, size * 0.5);
+            ctx.lineTo(0, size * 0.8);
+            ctx.lineTo(-size, size * 0.3);
+            ctx.closePath();
+            ctx.fill();
+
+            // Right Side Face (Darker Shaded)
+            ctx.fillStyle = color.darkSide;
+            ctx.beginPath();
+            ctx.moveTo(0, size * 0.5);
+            ctx.lineTo(size, 0);
+            ctx.lineTo(size, size * 0.3);
+            ctx.lineTo(0, size * 0.8);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function createShapeInstance(startFadedIn = false) {
+            const margin = 80;
+            const width = canvas.width || window.innerWidth;
+            const height = canvas.height || window.innerHeight;
+            
+            // Random spin behavior: ~35% Clockwise, ~35% Counter-Clockwise, ~30% Static
+            let rotSpeed = 0;
+            const spinRoll = Math.random();
+            if (spinRoll < 0.35) {
+                rotSpeed = 0.005 + Math.random() * 0.008; // Clockwise
+            } else if (spinRoll < 0.70) {
+                rotSpeed = -(0.005 + Math.random() * 0.008); // Counter-Clockwise
+            }
+
+            return {
+                x: margin + Math.random() * Math.max(100, width - margin * 2),
+                y: margin + Math.random() * Math.max(100, height - margin * 2),
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: (Math.random() - 0.5) * 0.7,
+                size: 16 + Math.random() * 8,
+                color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+                alpha: startFadedIn ? (0.3 + Math.random() * 0.7) : 0,
+                isFadingIn: !startFadedIn,
+                isDead: false,
+                rotation: Math.random() * Math.PI * 2,
+                rotationSpeed: rotSpeed
+            };
+        }
+
+        function spawnPixelExplosion(x, y, color1, color2) {
+            const particleCount = 18;
+            for (let i = 0; i < particleCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 1.2 + Math.random() * 3.8;
+                particlesArr.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    size: 3 + Math.floor(Math.random() * 3),
+                    color: Math.random() > 0.5 ? color1 : color2,
+                    life: 1.0,
+                    decay: 0.02 + Math.random() * 0.03
+                });
+            }
+        }
+
+        function evaluateCollisions() {
+            for (let i = 0; i < shapesArr.length; i++) {
+                for (let j = i + 1; j < shapesArr.length; j++) {
+                    const s1 = shapesArr[i];
+                    const s2 = shapesArr[j];
+
+                    // Fixed Hitbox Bug: Lowered alpha check gate so fading shapes can't phase through
+                    if (s1.isDead || s2.isDead || s1.alpha < 0.2 || s2.alpha < 0.2) continue;
+
+                    const dx = s1.x - s2.x;
+                    const dy = s1.y - s2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minAllowedDist = (s1.size + s2.size) * 0.95;
+
+                    if (distance < minAllowedDist) {
+                        s1.isDead = true;
+                        s2.isDead = true;
+
+                        const midX = (s1.x + s2.x) / 2;
+                        const midY = (s1.y + s2.y) / 2;
+                        spawnPixelExplosion(midX, midY, s1.color.top, s2.color.top);
+
+                        // Schedule replacement shapes to fade in on random locations
+                        setTimeout(() => { if (animFrameId) shapesArr.push(createShapeInstance(false)); }, 400);
+                        setTimeout(() => { if (animFrameId) shapesArr.push(createShapeInstance(false)); }, 800);
+                    }
+                }
+            }
+        }
+
+        function renderMenuBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. Update and draw Shapes
+            for (let i = shapesArr.length - 1; i >= 0; i--) {
+                const s = shapesArr[i];
+
+                if (s.isFadingIn) {
+                    s.alpha += 0.025;
+                    if (s.alpha >= 1) {
+                        s.alpha = 1;
+                        s.isFadingIn = false;
+                    }
+                }
+
+                s.x += s.vx;
+                s.y += s.vy;
+                s.rotation += s.rotationSpeed; // Update visual angle independent of linear movement
+
+                // Bounce off edges
+                if (s.x < s.size || s.x > canvas.width - s.size) s.vx *= -1;
+                if (s.y < s.size || s.y > canvas.height - s.size) s.vy *= -1;
+
+                drawIsometricDiamond(s.x, s.y, s.size, s.color, s.alpha, s.rotation);
+
+                if (s.isDead) {
+                    shapesArr.splice(i, 1);
+                }
+            }
+
+            evaluateCollisions();
+
+            // 2. Update and draw Pixel Explosion Particles
+            for (let i = particlesArr.length - 1; i >= 0; i--) {
+                const p = particlesArr[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= p.decay;
+
+                if (p.life <= 0) {
+                    particlesArr.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, p.life);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
+                ctx.restore();
+            }
+
+            animFrameId = requestAnimationFrame(renderMenuBackground);
+        }
+
+        function startMenuBgAnimation() {
+            resizeMenuCanvas();
+            shapesArr = [];
+            particlesArr = [];
+            
+            // Spawn initial 12 floating shapes
+            for (let i = 0; i < 12; i++) {
+                shapesArr.push(createShapeInstance(true));
+            }
+
+            if (!animFrameId) {
+                renderMenuBackground();
+            }
+        }
+
+        function stopMenuBgAnimation() {
+            if (animFrameId) {
+                cancelAnimationFrame(animFrameId);
+                animFrameId = null;
+            }
+            if (ctx && canvas) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            shapesArr = [];
+            particlesArr = [];
+        }
+
+        /* === MENU CONTROLLER === */
         const menuToggle = document.querySelector('.menu-toggle');
         const navOverlay = document.getElementById('mainNavOverlay');
         const menuLinks = document.querySelectorAll('.menu-link');
@@ -1009,21 +1603,29 @@
         const menuLinksWrapper = document.getElementById('menuLinksWrapper');
         const synopsisTriggerBtn = document.getElementById('synopsisTriggerBtn');
         const synopsisContentPanel = document.getElementById('synopsisContentPanel');
-        
         const definitiveContentPanel = document.getElementById('definitiveContentPanel');
+        
+        const corPubOpTrigger = document.getElementById('corPubOpTrigger');
+        const pubOpContentPanel = document.getElementById('pubOpContentPanel');
+
         function toggleMenu() {
             const isClosing = menuToggle.classList.contains('open');
             menuToggle.classList.toggle('open');
             navOverlay.classList.toggle('open');
+
             if (isClosing) {
                 document.body.style.overflow = '';
+                stopMenuBgAnimation();
+                
                 setTimeout(() => {
                     menuLinksWrapper.classList.remove('hidden');
                     synopsisContentPanel.classList.remove('active');
                     definitiveContentPanel.classList.remove('active');
+                    pubOpContentPanel.classList.remove('active');
                 }, 400);
             } else {
                 document.body.style.overflow = 'hidden';
+                startMenuBgAnimation();
             }
         }
 
@@ -1036,16 +1638,39 @@
                 }
             });
         });
+
         synopsisTriggerBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation(); 
             menuLinksWrapper.classList.add('hidden');
             definitiveContentPanel.classList.remove('active');
+            pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.add('active');
         });
 
+        corPubOpTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Open nav overlay & update hamburger toggle state
+            navOverlay.classList.add('open');
+            menuToggle.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            
+            // Hide standard menu links & other content panels
+            menuLinksWrapper.classList.add('hidden');
+            synopsisContentPanel.classList.remove('active');
+            definitiveContentPanel.classList.remove('active');
+            
+            // Show Publishing Opportunity panel
+            pubOpContentPanel.classList.add('active');
+            
+            // Disable background floating shapes for clarity
+            stopMenuBgAnimation();
+        });
+
         navOverlay.addEventListener('click', (e) => {
-            if (e.target === navOverlay || e.target === synopsisContentPanel || e.target === definitiveContentPanel) {
+            if (e.target === navOverlay || e.target === synopsisContentPanel || e.target === definitiveContentPanel || e.target === pubOpContentPanel) {
                 toggleMenu();
             }
         });
@@ -1055,6 +1680,10 @@
         definitiveContentPanel.addEventListener('click', (e) => {
             e.stopPropagation();
         });
+        pubOpContentPanel.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
         const trailerLightbox = document.getElementById('trailerLightbox');
         const modalVideoIframe = document.getElementById('modalVideoIframe');
         const targetEmbedSource = "https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1&modestbranding=1&rel=0";
@@ -1072,19 +1701,42 @@
             document.body.style.overflow = ''; 
         }
 
+        /* === MOBILE DEMO INTERCEPTOR === */
+        const playDemoBtn = document.querySelector('.btn-demo');
+        const mobileDemoModal = document.getElementById('mobileDemoModal');
+
+        if (playDemoBtn && mobileDemoModal) {
+            playDemoBtn.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    mobileDemoModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+
+            // Clicking anywhere on or outside the popup removes it
+            mobileDemoModal.addEventListener('click', () => {
+                mobileDemoModal.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        }
+
         const shareEngineTrigger = document.getElementById('shareEngineTrigger');
         const shareDropdownPanel = document.getElementById('shareDropdownPanel');
         const copyLinkActionBtn = document.getElementById('copyLinkActionBtn');
         const copyLinkTextNode = document.getElementById('copyLinkTextNode');
+
         shareEngineTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             shareDropdownPanel.classList.toggle('active');
         });
+
         document.addEventListener('click', (e) => {
             if (!shareDropdownPanel.contains(e.target) && e.target !== shareEngineTrigger) {
                 shareDropdownPanel.classList.remove('active');
             }
         });
+
         copyLinkActionBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const urlToCopy = 'https://hamachithepsychotickiller.com/';
@@ -1097,8 +1749,7 @@
                     copyLinkTextNode.textContent = 'Copy Link';
                     copyLinkActionBtn.style.borderColor = '';
                     copyLinkActionBtn.style.color = '';
-                 }, 
-                2000);
+                 }, 2000);
             }).catch(err => {
                 console.error('Could not copy text: ', err);
             });
