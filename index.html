@@ -427,41 +427,19 @@
         }
         .pub-op-cta {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             margin-top: 10px;
             width: 100%;
             text-align: center;
+            flex-wrap: wrap;
         }
         .pub-op-cta-label {
             font-size: 22px;
             color: #ffffff;
             letter-spacing: 1px;
-        }
-        .btn-pub-touch {
-            display: inline-block;
-            background-color: #00e676;
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 12px 32px;
-            border: 2px solid #000;
-            border-radius: 4px;
-            box-shadow: 0px 4px 0px #000000;
-            transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
-        }
-        .btn-pub-touch:hover {
-            filter: brightness(1.15);
-            transform: translateY(-2px);
-            box-shadow: 0px 6px 0px #000000;
-        }
-        .btn-pub-touch:active {
-            transform: translateY(2px);
-            box-shadow: 0px 2px 0px #000000;
         }
 
         /* === FIRST SCREEN SOCIAL DOCK === */
@@ -1050,7 +1028,6 @@
             .pub-op-intro { font-size: 16px; }
             .pub-op-section-title { font-size: 17px; }
             .pub-op-grid { grid-template-columns: 1fr; }
-            .btn-pub-touch { font-size: 16px; padding: 10px 24px; }
             
             .metadata-row { font-size: 15px; white-space: normal; }
             .metadata-row strong { width: 110px; flex-shrink: 0; }
@@ -1152,7 +1129,7 @@
         <div class="pub-op-container" id="pubOpContentPanel">
             <div class="pub-op-header">
                 <h2 class="pub-op-title">PUBLISHING OPPORTUNITY</h2>
-                <p class="pub-op-intro"><strong>Hamachi the Psychotic Killer</strong> is a completed game, released in February 2026. The game is fully playable and available today. I'm open to exploring publishing partnerships that could help expand Hamachi's reach and further develop the game beyond its current release.</p>
+                <p class="pub-op-intro"><em><strong>Hamachi the Psychotic Killer</strong></em> is a completed game, released in February 2026. The game is fully playable and available today. I'm open to exploring publishing partnerships that could help expand Hamachi's reach and further develop the game beyond its current release.</p>
             </div>
 
             <div style="width: 100%;">
@@ -1160,27 +1137,27 @@
                 <div class="pub-op-grid">
                     <div class="pub-op-card">
                         <h4>Original Soundtrack</h4>
-                        <p>An expanded original soundtrack could further strengthen Hamachi's musical identity and atmosphere.</p>
+                        <p>An expanded original soundtrack could further strengthen Hamachi's musical identity and world.</p>
                     </div>
                     <div class="pub-op-card">
                         <h4>Visual Polish</h4>
                         <p>Additional sprite work, animation, and visual polish could further enhance the game's presentation and world.</p>
                     </div>
                     <div class="pub-op-card">
-                        <h4>Expansion & New Opportunities</h4>
+                        <h4>Expansion</h4>
                         <p>There are opportunities to take Hamachi further through additional content, a definitive edition, new platforms, localization, or other directions that make sense for the game.</p>
                     </div>
                 </div>
             </div>
 
             <div class="pub-op-flexible">
-                <h4>A Flexible Opportunity</h4>
+                <h4>Flexibility</h4>
                 <p>The opportunities above are not requirements for a publishing partnership. They represent potential directions for Hamachi if the right partnership and resources are available. I'm open to discussing what makes sense for the game and the partner involved.</p>
             </div>
 
             <div class="pub-op-cta">
-                <span class="pub-op-cta-label">Interested?</span>
-                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="btn-pub-touch">Get in Touch</a>
+                <span class="pub-op-cta-label">Request Pitch Deck or Wanna Chat?</span>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="pill-btn btn-demo">Get in Touch</a>
             </div>
         </div>
     </nav>
