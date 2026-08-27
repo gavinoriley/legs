@@ -357,13 +357,13 @@
         }
         .pub-op-header {
             text-align: center;
-            border-bottom: 1px solid rgba(204, 17, 17, 0.4);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.4);
             padding-bottom: 16px;
             width: 100%;
         }
         .pub-op-title {
             font-size: 32px;
-            color: #cc1111;
+            color: #ffd700;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 12px;
@@ -377,11 +377,11 @@
         }
         .pub-op-section-title {
             font-size: 20px;
-            color: #ff5577;
+            color: #ffd700;
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 12px;
-            border-left: 3px solid #cc1111;
+            border-left: 3px solid #ffd700;
             padding-left: 10px;
         }
         .pub-op-grid {
@@ -408,15 +408,15 @@
             color: #cccccc;
         }
         .pub-op-flexible {
-            background: rgba(204, 17, 17, 0.08);
-            border: 1px solid rgba(204, 17, 17, 0.3);
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 4px;
             padding: 18px;
             width: 100%;
         }
         .pub-op-flexible h4 {
             font-size: 18px;
-            color: #ff5577;
+            color: #ffd700;
             margin-bottom: 8px;
             letter-spacing: 1px;
         }
@@ -436,41 +436,16 @@
             text-align: center;
             flex-wrap: wrap;
         }
-        .pub-op-cta-label {
+        .pub-op-cta-link {
             font-size: 22px;
             color: #ffffff;
             letter-spacing: 1px;
-        }
-
-        /* === STATIC COMPACT GET IN TOUCH BUTTON === */
-        .btn-get-in-touch {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #000000;
-            border-radius: 4px;
-            padding: 6px 14px;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
             text-decoration: none;
-            background-color: #00e676;
-            color: #000000 !important;
-            box-shadow: 0px 2px 0px #000000;
-            transition: none !important;
-            transform: none !important;
-            filter: none !important;
-            cursor: pointer;
+            transition: color 0.3s ease;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
-        .btn-get-in-touch:hover,
-        .btn-get-in-touch:active,
-        .btn-get-in-touch:focus {
-            background-color: #00e676 !important;
-            color: #000000 !important;
-            transform: none !important;
-            box-shadow: 0px 2px 0px #000000 !important;
-            filter: none !important;
+        .pub-op-cta-link:hover {
+            color: #ffd700;
         }
 
         /* === FIRST SCREEN SOCIAL DOCK === */
@@ -1187,8 +1162,7 @@
             </div>
 
             <div class="pub-op-cta">
-                <span class="pub-op-cta-label">Request Pitch Deck or Wanna Chat?</span>
-                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="btn-get-in-touch">Get in Touch</a>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunities" class="pub-op-cta-link">Click Here to Chat or Request Pitch Deck</a>
             </div>
         </div>
     </nav>
