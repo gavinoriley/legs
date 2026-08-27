@@ -441,6 +441,34 @@
             color: #ffffff;
             letter-spacing: 1px;
         }
+        .pub-op-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #cc1111;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 4px;
+            border: 1px solid #ff5577;
+            box-shadow: 0 4px 12px rgba(204, 17, 17, 0.3);
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pub-op-contact-btn:hover {
+            background-color: #e61919;
+            border-color: #ff7799;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(204, 17, 17, 0.5);
+        }
+        .pub-op-contact-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(204, 17, 17, 0.3);
+        }
 
         /* === FIRST SCREEN SOCIAL DOCK === */
         .hero-socials {
@@ -1157,7 +1185,7 @@
 
             <div class="pub-op-cta">
                 <span class="pub-op-cta-label">Request Pitch Deck or Wanna Chat?</span>
-                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="pill-btn btn-demo">Get in Touch</a>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="pub-op-contact-btn">Get in Touch</a>
             </div>
         </div>
     </nav>
