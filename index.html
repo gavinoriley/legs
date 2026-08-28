@@ -51,7 +51,7 @@
             cursor: url('https://gavinoriley.github.io/assets/sprCursor_3.png'), auto;
         }
         body {
-            background: #0b0813; /* Midnight Obsidian Base */
+            background: #0b0813;
             color: #ffffff;
             position: relative;
             min-height: 100vh;
@@ -60,18 +60,15 @@
             flex-direction: column;
         }
 
-        /* Bulletproof Scroll Lock Class */
         .scroll-locked {
             overflow: hidden !important;
             touch-action: none;
         }
 
-        /* Lenis Smooth Scroll Setup */
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-stopped { overflow: hidden; }
 
-        /* === HEADER CONTROLS === */
         .header-bar {
             position: fixed;
             top: 0;
@@ -104,7 +101,6 @@
             filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 42, 117, 0.8));
         }
 
-        /* === SANDWICH MENU BUTTON === */
         .menu-toggle {
             position: fixed;
             top: 40px; 
@@ -136,10 +132,9 @@
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* === GTA VI STICKY STAGE ENGINE === */
         .gta-scroll-stage {
             position: relative;
-            height: 300vh; /* Smooth multi-phase timeline space */
+            height: 300vh;
             width: 100%;
         }
 
@@ -154,7 +149,6 @@
             justify-content: center;
         }
 
-        /* Hero Layer (Phase 1) */
         .hero-viewport-wrapper {
             position: absolute;
             top: 0;
@@ -228,7 +222,6 @@
             flex-wrap: wrap;
         }
 
-        /* === HEAVY & CINEMATIC GTA VI-STYLE PILL BUTTONS === */
         .gta-pill-btn {
             position: relative;
             display: inline-flex;
@@ -319,7 +312,6 @@
             60% { transform: translateY(3px) rotate(45deg); }
         }
 
-        /* Reveal Intro Layer (Phase 2) */
         .reveal-hero-intro {
             position: absolute;
             top: 0;
@@ -363,7 +355,6 @@
             width: 100%;
         }
 
-        /* === SECTION 2: CONTINUOUS ABOUT CONTENT === */
         .extended-content-section {
             position: relative;
             z-index: 30;
@@ -408,7 +399,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* === SCROLL REVEAL & GTA VI SEAMLESS TRANSITION ENGINE === */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(60px) scale(0.96) translateZ(0);
@@ -427,7 +417,6 @@
             filter: blur(0);
         }
 
-        /* Seamless Ambient Backdrop Transition */
         .publishing-opportunity-section {
             position: relative;
             z-index: 30;
@@ -540,7 +529,6 @@
             justify-content: center;
         }
 
-        /* === ZOOM MODAL STYLES === */
         .image-modal {
             position: fixed;
             top: 0;
@@ -568,7 +556,6 @@
             max-height: none;
         }
 
-        /* === TRAILER MODAL OVERLAY (FROSTED GLASS EFFECT) === */
         .trailer-modal {
             position: fixed;
             top: 0;
@@ -622,7 +609,6 @@
             color: #ff2a75;
         }
 
-        /* === FULLSCREEN NAVIGATION OVERLAY === */
         .nav-overlay {
             position: fixed;
             top: 0;
@@ -680,13 +666,11 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
-        /* Custom Hover Colors for Hamburger Menu Links */
         .nav-overlay a.hover-red:hover { color: #ff2a75; }
         .nav-overlay a.hover-green:hover { color: #00ff66; }
         .nav-overlay a.hover-blue:hover { color: #00f0ff; }
         .nav-overlay a.hover-yellow:hover { color: #ffff00; }
 
-        /* === PANELS & MODALS === */
         .synopsis-container, .pub-op-container {
             z-index: 10;
             display: flex;
@@ -744,7 +728,6 @@
             z-index: 50;
         }
 
-        /* Mobile Adjustments (Strictly Applied to Mobile Viewports) */
         @media screen and (max-width: 768px) {
             html, body {
                 overflow-x: clip !important;
@@ -759,7 +742,6 @@
             .header-bar { padding: 25px 30px; }
             .menu-toggle { top: 30px; right: 30px; }
 
-            /* Video Flickering Fix */
             .hero-video-window { 
                 width: 95vw; 
                 -webkit-transform: translateZ(0);
@@ -775,7 +757,6 @@
 
             .gta-action-row { flex-direction: column; width: 90%; gap: 14px; }
             
-            /* Button Text Alignment Fix */
             .gta-pill-btn { 
                 width: 100%; 
                 padding: 14px 20px; 
@@ -784,7 +765,6 @@
                 justify-content: center;
             }
 
-            /* Hamburger Overlay Buttons Resizing Fix */
             .nav-overlay a {
                 font-size: 22px;
                 text-align: center;
@@ -795,7 +775,6 @@
                 width: 100%;
             }
 
-            /* Synopsis Mobile Formatting & Scroll Fix */
             .synopsis-container {
                 width: 92%;
                 max-width: 100%;
@@ -838,7 +817,6 @@
                 width: 110px;
             }
 
-            /* Horizontal Overflow & Sizing Fixes */
             .extended-content-section {
                 width: 100%;
                 padding: 40px 15px 60px 15px;
@@ -864,7 +842,6 @@
         }
     </style>
 
-    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -881,21 +858,18 @@
 </head>
 <body>
 
-    <!-- Header Overlay -->
     <header class="header-bar">
         <a href="https://hamachithepsychotickiller.com/" class="brand-logo-left" aria-label="Hamachi Icon Homepage">
             <img src="https://gavinoriley.github.io/assets/whitehamaface.png" alt="Hamachi Icon">
         </a>
     </header>
 
-    <!-- Ported Sandwich Menu Button -->
     <button class="menu-toggle" aria-label="Toggle Navigation">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <!-- Fullscreen Navigation Menu Overlay -->
     <nav class="nav-overlay" id="mainNavOverlay">
         <canvas id="menuBgCanvas"></canvas>
 
@@ -908,7 +882,6 @@
             <a href="#" class="menu-link hover-green" id="navSynopsisBtn">SYNOPSIS</a>
         </div>
 
-        <!-- Synopsis Container Panel -->
         <div class="synopsis-container" id="synopsisContentPanel">
             <div class="synopsis-left">
                 <p class="synopsis-desc">In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity, an evil fiend who intends to use him as a vessel to conquer the world through mass murder.</p>
@@ -933,7 +906,6 @@
             </div>
         </div>
 
-        <!-- Pitch Deck / Publisher Panel -->
         <div class="pub-op-container" id="pubOpContentPanel">
             <div class="pub-op-header">
                 <h2 class="pub-op-title">PUBLISHING PARTNERSHIPS</h2>
@@ -942,7 +914,6 @@
         </div>
     </nav>
 
-    <!-- Trailer Video Modal Window -->
     <div class="trailer-modal" id="trailerModal">
         <button class="trailer-close-btn" id="closeTrailerBtn" aria-label="Close Trailer">&times;</button>
         <div class="trailer-video-container">
@@ -950,11 +921,9 @@
         </div>
     </div>
 
-    <!-- SECTION 1 & REVEAL INTRO: GTA VI STICKY SCROLL STAGE -->
     <div class="gta-scroll-stage" id="scrollStage">
         <div class="sticky-viewport">
             
-            <!-- Hero Viewport Layer (Phase 1) -->
             <div class="hero-viewport-wrapper" id="heroViewport">
                 <main class="gta-landing-hero">
                     <div class="hero-video-window" id="heroVideoWindow">
@@ -977,7 +946,6 @@
                 </div>
             </div>
 
-            <!-- Reveal Intro Layer (Phase 2) -->
             <div class="reveal-hero-intro" id="revealHeroIntro">
                 <div class="logo-wrapper">
                     <a href="https://hamachithepsychotickiller.com/">
@@ -991,7 +959,6 @@
         </div>
     </div>
 
-    <!-- SECTION 2: EXTENDED CONTENT FROM ABOUT PAGE (CONTINUOUS SCROLL WITH GTA-STYLE REVEALS) -->
     <section class="extended-content-section" id="aboutSection">
         <div class="image-container reveal-on-scroll">
             <img src="https://gavinoriley.github.io/assets/demonicpossession.png" alt="Normal Scene">
@@ -1022,7 +989,6 @@
         <p class="reveal-on-scroll">Your crimes will not go unnoticed by the authorities.</p>
     </section>
 
-    <!-- SECTION 3: PUBLISHING PARTNERSHIPS SECTION (CINEMATIC GTA VI STAGE TRANSITION) -->
     <section class="publishing-opportunity-section reveal-on-scroll" id="publishingSection">
         <div class="pub-section-header">
             <h2 class="pub-section-title">PUBLISHING PARTNERSHIPS</h2>
@@ -1058,7 +1024,6 @@
         </div>
     </section>
 
-    <!-- POLISHED ZOOM MODAL ENGINE -->
     <div class="image-modal">
         <img src="" alt="">
     </div>
@@ -1067,10 +1032,8 @@
         <p>© 2026 Hamachi the Psychotic Killer. All rights reserved.</p>
     </footer>
 
-    <!-- Engine Scripts -->
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script>
-        // Smooth Scroll Engine Setup
         const lenis = new Lenis({
             lerp: 0.08,
             wheelMultiplier: 1.0,
@@ -1088,7 +1051,6 @@
         }
         requestAnimationFrame(raf);
 
-        /* === GTA VI TWO-PHASE STICKY SCROLL ENGINE === */
         const scrollStage = document.getElementById('scrollStage');
         const heroViewport = document.getElementById('heroViewport');
         const revealHeroIntro = document.getElementById('revealHeroIntro');
@@ -1099,7 +1061,6 @@
             const scrolled = -stageRect.top;
             const p = Math.max(0, Math.min(1, scrolled / Math.max(1, stageHeight)));
 
-            /* Phase 1 (Hero Section): Smooth fade out and subtle scale down */
             if (p <= 0.42) {
                 const phase1Progress = p / 0.42;
                 const opacity = (1 - phase1Progress).toFixed(3);
@@ -1113,7 +1074,6 @@
                 heroViewport.style.pointerEvents = 'none';
             }
 
-            /* Phase 2 (Reveal Intro Section): Smooth fade in and scale up */
             if (p >= 0.42) {
                 const phase2Progress = Math.min(1, (p - 0.42) / 0.43);
                 const opacity = phase2Progress.toFixed(3);
@@ -1134,7 +1094,6 @@
         window.addEventListener('resize', handleScrollTransition);
         handleScrollTransition();
 
-        /* === GTA VI SCROLL REVEAL INTERSECTION OBSERVER (BI-DIRECTIONAL REVEAL EFFECT) === */
         const observerOptions = {
             root: null,
             threshold: 0.15,
@@ -1155,7 +1114,6 @@
             revealObserver.observe(el);
         });
 
-        /* === TARGETED VIDEO HOVER DIMMING === */
         const actionButtons = document.querySelectorAll('.gta-pill-btn');
         const heroVideoWindow = document.getElementById('heroVideoWindow');
 
@@ -1164,7 +1122,6 @@
             button.addEventListener('mouseleave', () => heroVideoWindow.classList.remove('video-dimmed'));
         });
 
-        /* === WATCH TRAILER MODAL CONTROLLER === */
         const watchTrailerBtn = document.getElementById('watchTrailerBtn');
         const trailerModal = document.getElementById('trailerModal');
         const trailerIframe = document.getElementById('trailerIframe');
@@ -1199,7 +1156,6 @@
             });
         }
 
-        /* === IMAGE CLICK-TO-ZOOM LIGHTBOX ENGINE === */
         const clickableImages = document.querySelectorAll('.image-container img, .intro-preview-frame');
         const modal = document.querySelector('.image-modal');
         const modalImg = modal.querySelector('img');
@@ -1224,7 +1180,7 @@
                 modalImg.style.transform = 'translate(0, 0) scale(1)';
 
                 modal.style.display = 'block';
-                modalImg.offsetHeight; // Force reflow
+                modalImg.offsetHeight;
 
                 modal.classList.add('active');
 
@@ -1291,7 +1247,6 @@
             }
         });
 
-        /* === CANVAS RETRO SHAPES BACKGROUND (MENU OVERLAY) === */
         const canvas = document.getElementById('menuBgCanvas');
         const ctx = canvas.getContext('2d');
         let animFrameId = null;
@@ -1348,7 +1303,6 @@
             }
         }
 
-        /* === MENU & MODAL CONTROLLERS === */
         const menuToggle = document.querySelector('.menu-toggle');
         const navOverlay = document.getElementById('mainNavOverlay');
         const menuLinksWrapper = document.getElementById('menuLinksWrapper');
