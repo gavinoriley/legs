@@ -410,8 +410,10 @@
         /* === SCROLL REVEAL & GTA VI SEAMLESS TRANSITION ENGINE === */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(60px) scale(0.96);
+            transform: translateY(60px) scale(0.96) translateZ(0);
             filter: blur(6px);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
                         transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
                         filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -420,7 +422,7 @@
 
         .reveal-on-scroll.is-visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1) translateZ(0);
             filter: blur(0);
         }
 
@@ -565,6 +567,60 @@
             max-height: none;
         }
 
+        /* === TRAILER MODAL OVERLAY (FROSTED GLASS EFFECT) === */
+        .trailer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 7, 16, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 160;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .trailer-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .trailer-video-container {
+            position: relative;
+            width: 90vw;
+            max-width: 960px;
+            aspect-ratio: 16 / 9;
+            background: #000000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1.5px rgba(255, 42, 117, 0.25);
+        }
+        .trailer-video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .trailer-close-btn {
+            position: absolute;
+            top: 35px;
+            right: 50px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 42px;
+            cursor: pointer;
+            z-index: 170;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        .trailer-close-btn:hover {
+            color: #ff2a75;
+        }
+
         /* === FULLSCREEN NAVIGATION OVERLAY === */
         .nav-overlay {
             position: fixed;
@@ -622,12 +678,12 @@
             transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
-        .nav-overlay a:nth-child(1):hover { color: #ff2a75; }
-        .nav-overlay a:nth-child(2):hover { color: #00f0ff; }
-        .nav-overlay a:nth-child(3):hover { color: #a855f7; }
-        .nav-overlay a:nth-child(4):hover { color: #ff5577; }
-        .nav-overlay a:nth-child(5):hover { color: #00f0ff; }
-        .nav-overlay a:nth-child(6):hover { color: #ff2a75; }
+
+        /* Custom Hover Colors for Hamburger Menu Links */
+        .nav-overlay a.hover-red:hover { color: #ff2a75; }
+        .nav-overlay a.hover-green:hover { color: #00ff66; }
+        .nav-overlay a.hover-blue:hover { color: #00f0ff; }
+        .nav-overlay a.hover-yellow:hover { color: #ffff00; }
 
         /* === PANELS & MODALS === */
         .synopsis-container, .pub-op-container {
@@ -661,7 +717,7 @@
         .synopsis-features-list li::before { content: "•"; color: #ff2a75; position: absolute; left: 0; font-size: 20px; }
         .synopsis-right { flex: 0.8; border-left: 1px solid rgba(255, 255, 255, 0.2); padding-left: 45px; display: flex; flex-direction: column; justify-content: center; gap: 16px; text-align: left; }
         .metadata-row { display: flex; font-size: 18px; color: #bbbbbb; letter-spacing: 1px; }
-        .metadata-row strong { color: #00f0ff; width: 140px; flex-shrink: 0; }
+        .metadata-row strong { color: #ff2a75; width: 140px; flex-shrink: 0; }
 
         .pub-op-container {
             flex-direction: column;
@@ -701,6 +757,7 @@
             .image-container { flex-direction: column; align-items: center; gap: 10px; }
             .synopsis-container.active { flex-direction: column; gap: 24px; }
             .synopsis-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 20px; }
+            .trailer-close-btn { top: 20px; right: 25px; font-size: 32px; }
         }
     </style>
 
@@ -740,31 +797,34 @@
         <canvas id="menuBgCanvas"></canvas>
 
         <div class="nav-links-wrapper" id="menuLinksWrapper">
-            <a href="https://hamachithepsychotickiller.com/about/" class="menu-link">GAME INFO</a>
-            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link">STEAM PAGE</a>
-            <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link">DEV ROOM</a>
-            <a href="mailto:img.oriley@gmail.com?subject=Publisher%20Inquiry%20-%20Hamachi" class="menu-link">GET IN TOUCH</a>
-            <a href="#" class="menu-link" id="navSynopsisBtn">SYNOPSIS</a>
-            <a href="#" class="menu-link" id="navPitchBtn">PITCH DECK</a>
+            <a href="https://hamachithepsychotickiller.com/" class="menu-link hover-red">MAIN WEBSITE</a>
+            <a href="https://hamachithepsychotickiller.com/about/" class="menu-link hover-green">GAME INFO</a>
+            <a href="https://itch.io/embed-upload/16876356?color=333333" target="_blank" class="menu-link hover-blue">PLAY DEMO</a>
+            <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link hover-yellow">STEAM PAGE</a>
+            <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link hover-red">DEV ROOM</a>
+            <a href="#" class="menu-link hover-red" id="navSynopsisBtn">SYNOPSIS</a>
         </div>
 
         <!-- Synopsis Container Panel -->
         <div class="synopsis-container" id="synopsisContentPanel">
             <div class="synopsis-left">
                 <p class="synopsis-desc">In this platformer, you control a piece of tofu named Hamachi, who unexpectedly falls into the possession of Demon Queen Deity, an evil fiend who intends to use him as a vessel to conquer the world through mass murder.</p>
-                <h3 class="synopsis-features-title">features:</h3>
+                <h3 class="synopsis-features-title">FEATURES:</h3>
                 <ul class="synopsis-features-list">
                     <li>Play as the villain: Choose to kill, spare, or ignore every civilian.</li>
                     <li>Three distinct routes: Pacifist, Neutral, and Genocide, each with its own ending.</li>
                     <li>Defeat or pacify demonic bosses, pacified bosses will join your side.</li>
                     <li>Journey through 8 visually distinct worlds built with original pixel art.</li>
-                    <li>Chainsaw power-up, <em>The Psycho Saw</em>, grants temporary invincibility.</li>
+                    <li>Chainsaw power-up, <em>The Psycho Saw</em>, grants temporary invincibility and destroys any being you touch.</li>
+                    <li>Collect souls from dead civilians or sushi dropped by Penelope Pom Pom Pink to restore health.</li>
+                    <li>Your crimes will not go unnoticed by the authorities.</li>
                 </ul>
             </div>
             <div class="synopsis-right">
                 <div class="metadata-row"><strong>TITLE:</strong> Hamachi the Psychotic Killer</div>
                 <div class="metadata-row"><strong>GENRE:</strong> Action, Indie</div>
                 <div class="metadata-row"><strong>DEVELOPER:</strong> gavinoriley</div>
+                <div class="metadata-row"><strong>PUBLISHER:</strong> gavinoriley</div>
                 <div class="metadata-row"><strong>RELEASE DATE:</strong> Feb 27, 2026</div>
                 <div class="metadata-row"><strong>PLATFORM:</strong> Windows/Mac</div>
             </div>
@@ -773,11 +833,19 @@
         <!-- Pitch Deck / Publisher Panel -->
         <div class="pub-op-container" id="pubOpContentPanel">
             <div class="pub-op-header">
-                <h2 class="pub-op-title">PUBLISHING OPPORTUNITY</h2>
+                <h2 class="pub-op-title">PUBLISHING PARTNERSHIPS</h2>
                 <p class="pub-op-intro"><em>Hamachi the Psychotic Killer</em> is a completed game released in 2026. We are exploring publishing partnerships to expand global reach, support console ports, and elevate marketing.</p>
             </div>
         </div>
     </nav>
+
+    <!-- Trailer Video Modal Window -->
+    <div class="trailer-modal" id="trailerModal">
+        <button class="trailer-close-btn" id="closeTrailerBtn" aria-label="Close Trailer">&times;</button>
+        <div class="trailer-video-container">
+            <iframe id="trailerIframe" src="" title="Hamachi the Psychotic Killer Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <!-- SECTION 1 & REVEAL INTRO: GTA VI STICKY SCROLL STAGE -->
     <div class="gta-scroll-stage" id="scrollStage">
@@ -794,8 +862,9 @@
                     </div>
 
                     <div class="gta-action-row">
-                        <a href="#aboutSection" class="gta-pill-btn" id="scrollExploreBtn">Explore Game</a>
-                        <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20Pitch%20Deck%20Request" class="gta-pill-btn" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+                        <a href="#" class="gta-pill-btn" id="scrollExploreBtn">Synopsis</a>
+                        <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+                        <a href="#" class="gta-pill-btn" id="watchTrailerBtn">Watch Trailer</a>
                     </div>
                 </main>
 
@@ -850,37 +919,37 @@
         <p class="reveal-on-scroll">Your crimes will not go unnoticed by the authorities.</p>
     </section>
 
-    <!-- SECTION 3: PUBLISHING OPPORTUNITY SECTION (CINEMATIC GTA VI STAGE TRANSITION) -->
+    <!-- SECTION 3: PUBLISHING PARTNERSHIPS SECTION (CINEMATIC GTA VI STAGE TRANSITION) -->
     <section class="publishing-opportunity-section reveal-on-scroll" id="publishingSection">
         <div class="pub-section-header">
-            <h2 class="pub-section-title">PUBLISHING OPPORTUNITY</h2>
+            <h2 class="pub-section-title">PUBLISHING PARTNERSHIPS</h2>
             <p class="pub-section-intro">
-                <em><strong>Hamachi the Psychotic Killer</strong></em> is a completed game, released in February 2026. The game is fully playable and available today. We are exploring publishing partnerships to help expand Hamachi's global reach, support potential console ports, and further elevate marketing and development.
+                <em>Hamachi the Psychotic Killer</em> is a completed game, released in February 2026 and available today. I'm open to exploring publishing partnerships that could expand Hamachi's reach and further develop the game beyond its current release.
             </p>
         </div>
 
         <div class="pub-grid">
             <div class="pub-card reveal-on-scroll">
                 <h3>Original Soundtrack</h3>
-                <p>An expanded original soundtrack could further strengthen Hamachi's musical identity and world presentation.</p>
+                <p>An expanded original soundtrack could further strengthen Hamachi's musical identity, atmosphere, and world.</p>
             </div>
             <div class="pub-card reveal-on-scroll">
                 <h3>Visual Polish</h3>
-                <p>Additional sprite work, animation, and visual polish could further enhance the game's overall presentation.</p>
+                <p>Additional sprite work, animation, and visual polish could further enhance the game's presentation.</p>
             </div>
             <div class="pub-card reveal-on-scroll">
-                <h3>Expansion & Ports</h3>
-                <p>There are opportunities to take Hamachi further through additional content, a definitive edition, new platforms, localization, or other strategic directions.</p>
+                <h3>Expansion</h3>
+                <p>There are opportunities to take Hamachi further through additional content, a definitive edition, console and mobile releases, localization, and other avenues for growth.</p>
             </div>
         </div>
 
         <div class="pub-flexibility-box reveal-on-scroll">
             <h3>Flexibility</h3>
-            <p>The opportunities above are not rigid requirements for a publishing partnership. They represent potential directions for Hamachi if the right partnership and resources are available. We are open to discussing tailored scopes that make sense for both the game and the partner involved.</p>
+            <p>The opportunities above represent potential directions for Hamachi rather than fixed requirements. I'm open to discussing what makes sense for the game and the right publishing partner.</p>
         </div>
 
         <div class="pub-cta-wrapper reveal-on-scroll">
-            <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunities" class="gta-pill-btn">
+            <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn">
                 Get in Touch / Request Pitch Deck
             </a>
         </div>
@@ -962,22 +1031,19 @@
         window.addEventListener('resize', handleScrollTransition);
         handleScrollTransition();
 
-        document.getElementById('scrollExploreBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            lenis.scrollTo(scrollStage.offsetHeight * 0.85, { duration: 1.2 });
-        });
-
-        /* === GTA VI SCROLL REVEAL INTERSECTION OBSERVER === */
+        /* === GTA VI SCROLL REVEAL INTERSECTION OBSERVER (BI-DIRECTIONAL REVEAL EFFECT) === */
         const observerOptions = {
             root: null,
             threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
+            rootMargin: "200px 0px -50px 0px"
         };
 
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
                 }
             });
         }, observerOptions);
@@ -994,6 +1060,41 @@
             button.addEventListener('mouseenter', () => heroVideoWindow.classList.add('video-dimmed'));
             button.addEventListener('mouseleave', () => heroVideoWindow.classList.remove('video-dimmed'));
         });
+
+        /* === WATCH TRAILER MODAL CONTROLLER === */
+        const watchTrailerBtn = document.getElementById('watchTrailerBtn');
+        const trailerModal = document.getElementById('trailerModal');
+        const trailerIframe = document.getElementById('trailerIframe');
+        const closeTrailerBtn = document.getElementById('closeTrailerBtn');
+
+        function openTrailerModal(e) {
+            if (e) e.preventDefault();
+            trailerIframe.src = "https://www.youtube.com/embed/VbFZFto8Naw?autoplay=1";
+            trailerModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            if (typeof lenis !== 'undefined') lenis.stop();
+        }
+
+        function closeTrailerModal() {
+            trailerModal.classList.remove('open');
+            trailerIframe.src = "";
+            document.body.style.overflow = '';
+            if (typeof lenis !== 'undefined') {
+                lenis.start();
+                lenis.resize();
+            }
+            requestAnimationFrame(() => {
+                handleScrollTransition();
+            });
+        }
+
+        if (watchTrailerBtn) watchTrailerBtn.addEventListener('click', openTrailerModal);
+        if (closeTrailerBtn) closeTrailerBtn.addEventListener('click', closeTrailerModal);
+        if (trailerModal) {
+            trailerModal.addEventListener('click', (e) => {
+                if (e.target === trailerModal) closeTrailerModal();
+            });
+        }
 
         /* === IMAGE CLICK-TO-ZOOM LIGHTBOX ENGINE === */
         const clickableImages = document.querySelectorAll('.image-container img, .intro-preview-frame');
@@ -1081,7 +1182,10 @@
 
         modal.addEventListener('click', closeModal);
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+            if (e.key === 'Escape') {
+                if (modal.classList.contains('active')) closeModal();
+                if (trailerModal && trailerModal.classList.contains('open')) closeTrailerModal();
+            }
         });
 
         /* === CANVAS RETRO SHAPES BACKGROUND (MENU OVERLAY) === */
@@ -1149,7 +1253,7 @@
         const pubOpContentPanel = document.getElementById('pubOpContentPanel');
         
         const navSynopsisBtn = document.getElementById('navSynopsisBtn');
-        const navPitchBtn = document.getElementById('navPitchBtn');
+        const scrollExploreBtn = document.getElementById('scrollExploreBtn');
 
         function toggleMenu() {
             const isClosing = menuToggle.classList.contains('open');
@@ -1183,19 +1287,8 @@
             synopsisContentPanel.classList.add('active');
         }
 
-        function openPitchPanel(e) {
-            if (e) e.preventDefault();
-            if (!navOverlay.classList.contains('open')) {
-                menuToggle.classList.add('open');
-                navOverlay.classList.add('open');
-            }
-            menuLinksWrapper.classList.add('hidden');
-            synopsisContentPanel.classList.remove('active');
-            pubOpContentPanel.classList.add('active');
-        }
-
         navSynopsisBtn.addEventListener('click', openSynopsisPanel);
-        navPitchBtn.addEventListener('click', openPitchPanel);
+        scrollExploreBtn.addEventListener('click', openSynopsisPanel);
 
         navOverlay.addEventListener('click', (e) => {
             if (e.target === navOverlay) toggleMenu();
