@@ -747,8 +747,13 @@
         /* Mobile Adjustments (Strictly Applied to Mobile Viewports) */
         @media screen and (max-width: 768px) {
             html, body {
-                overflow-x: hidden !important;
+                overflow-x: clip !important;
                 width: 100%;
+            }
+
+            .sticky-viewport {
+                height: 100vh;
+                height: 100dvh;
             }
 
             .header-bar { padding: 25px 30px; }
