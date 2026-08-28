@@ -218,8 +218,48 @@
             align-items: center;
             gap: 24px;
             margin-top: 35px;
-            z-index: 50;
+            z-index: 70;
             flex-wrap: wrap;
+        }
+
+        .pitch-btn-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pitch-preview-window {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            left: 50%;
+            transform: translateX(-50%) translateY(12px) scale(0.95);
+            width: 300px;
+            max-width: 85vw;
+            background: #0b0813;
+            border: 1px solid rgba(255, 42, 117, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 42, 117, 0.3);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.4s ease;
+            z-index: 100;
+        }
+
+        .pitch-preview-window img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pitch-btn-wrapper:hover .pitch-preview-window {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0) scale(1);
         }
 
         .gta-pill-btn {
@@ -757,6 +797,14 @@
 
             .gta-action-row { flex-direction: column; width: 90%; gap: 14px; }
             
+            .pitch-btn-wrapper {
+                width: 100%;
+            }
+
+            .pitch-preview-window {
+                display: none !important;
+            }
+
             .gta-pill-btn { 
                 width: 100%; 
                 padding: 14px 20px; 
@@ -935,7 +983,12 @@
 
                     <div class="gta-action-row">
                         <a href="#" class="gta-pill-btn" id="scrollExploreBtn">Synopsis</a>
-                        <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+                        <div class="pitch-btn-wrapper">
+                            <div class="pitch-preview-window">
+                                <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
+                            </div>
+                            <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+                        </div>
                         <a href="#" class="gta-pill-btn" id="watchTrailerBtn">Watch Trailer</a>
                     </div>
                 </main>
@@ -1018,9 +1071,14 @@
         </div>
 
         <div class="pub-cta-wrapper reveal-on-scroll">
-            <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn">
-                Get in Touch / Request Pitch Deck
-            </a>
+            <div class="pitch-btn-wrapper">
+                <div class="pitch-preview-window">
+                    <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
+                </div>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn">
+                    Get in Touch / Request Pitch Deck
+                </a>
+            </div>
         </div>
     </section>
 
