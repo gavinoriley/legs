@@ -711,7 +711,7 @@
         .nav-overlay a.hover-blue:hover { color: #00f0ff; }
         .nav-overlay a.hover-yellow:hover { color: #ffff00; }
 
-        .synopsis-container, .pub-op-container {
+        .synopsis-container, .pub-op-container, .about-dev-container {
             z-index: 10;
             display: flex;
             opacity: 0;
@@ -721,7 +721,7 @@
             transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
             position: absolute;
         }
-        .synopsis-container.active, .pub-op-container.active {
+        .synopsis-container.active, .pub-op-container.active, .about-dev-container.active {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
@@ -757,6 +757,20 @@
         .pub-op-header { text-align: center; border-bottom: 1px solid rgba(255, 42, 117, 0.4); padding-bottom: 16px; width: 100%; }
         .pub-op-title { font-size: 32px; color: #ff2a75; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
         .pub-op-intro { font-size: 19px; line-height: 1.6; color: #e0e0e0; }
+
+        .about-dev-container {
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 850px;
+            max-height: 85vh;
+            overflow-y: auto;
+            gap: 20px;
+            padding: 20px 10px;
+        }
+        .about-dev-header { text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.4); padding-bottom: 16px; width: 100%; margin-bottom: 10px; }
+        .about-dev-title { font-size: 32px; color: #00f0ff; letter-spacing: 3px; text-transform: uppercase; }
+        .about-dev-text { font-size: 19px; line-height: 1.6; color: #e0e0e0; text-align: left; }
 
         footer {
             text-align: center;
@@ -887,6 +901,9 @@
                 font-size: 18px;
                 padding: 0 10px;
             }
+
+            .about-dev-title { font-size: 26px; }
+            .about-dev-text { font-size: 16px; }
         }
     </style>
 
@@ -928,6 +945,7 @@
             <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" class="menu-link hover-yellow">STEAM PAGE</a>
             <a href="https://hamachithepsychotickiller.com/devroom/" class="menu-link hover-red">DEV ROOM</a>
             <a href="#" class="menu-link hover-green" id="navSynopsisBtn">SYNOPSIS</a>
+            <a href="#" class="menu-link hover-blue" id="navAboutDevBtn">ABOUT THE DEV</a>
         </div>
 
         <div class="synopsis-container" id="synopsisContentPanel">
@@ -952,6 +970,15 @@
                 <div class="metadata-row"><strong>RELEASE DATE:</strong> Feb 27, 2026</div>
                 <div class="metadata-row"><strong>PLATFORM:</strong> Windows/Mac</div>
             </div>
+        </div>
+
+        <div class="about-dev-container" id="aboutDevContentPanel">
+            <div class="about-dev-header">
+                <h2 class="about-dev-title">ABOUT THE DEV</h2>
+            </div>
+            <p class="about-dev-text">Based in California, my name is gavinoriley. I'm a solo self-taught developer, or, more specifically, I barf up code into GameMaker and then strategically piece it together with glue and tape.</p>
+            <p class="about-dev-text">I began by pulling apart prebuilt projects in GameMaker to understand how code and design fit together, while also modding existing 2D and 3D games. That eventually led me to a specialized game development program in high school, where I continued developing my skills.</p>
+            <p class="about-dev-text">Today, I'm the independent developer behind <em>Hamachi the Psychotic Killer</em>, which I developed from concept through release.</p>
         </div>
 
         <div class="pub-op-container" id="pubOpContentPanel">
@@ -1367,8 +1394,10 @@
         const menuLinksWrapper = document.getElementById('menuLinksWrapper');
         const synopsisContentPanel = document.getElementById('synopsisContentPanel');
         const pubOpContentPanel = document.getElementById('pubOpContentPanel');
+        const aboutDevContentPanel = document.getElementById('aboutDevContentPanel');
         
         const navSynopsisBtn = document.getElementById('navSynopsisBtn');
+        const navAboutDevBtn = document.getElementById('navAboutDevBtn');
         const scrollExploreBtn = document.getElementById('scrollExploreBtn');
 
         function toggleMenu() {
@@ -1383,6 +1412,7 @@
                     menuLinksWrapper.classList.remove('hidden');
                     synopsisContentPanel.classList.remove('active');
                     pubOpContentPanel.classList.remove('active');
+                    aboutDevContentPanel.classList.remove('active');
                 }, 400);
             } else {
                 document.body.style.overflow = 'hidden';
@@ -1400,10 +1430,24 @@
             }
             menuLinksWrapper.classList.add('hidden');
             pubOpContentPanel.classList.remove('active');
+            aboutDevContentPanel.classList.remove('active');
             synopsisContentPanel.classList.add('active');
         }
 
+        function openAboutDevPanel(e) {
+            if (e) e.preventDefault();
+            if (!navOverlay.classList.contains('open')) {
+                menuToggle.classList.add('open');
+                navOverlay.classList.add('open');
+            }
+            menuLinksWrapper.classList.add('hidden');
+            pubOpContentPanel.classList.remove('active');
+            synopsisContentPanel.classList.remove('active');
+            aboutDevContentPanel.classList.add('active');
+        }
+
         navSynopsisBtn.addEventListener('click', openSynopsisPanel);
+        if (navAboutDevBtn) navAboutDevBtn.addEventListener('click', openAboutDevPanel);
         scrollExploreBtn.addEventListener('click', openSynopsisPanel);
 
         navOverlay.addEventListener('click', (e) => {
