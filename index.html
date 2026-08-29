@@ -734,7 +734,7 @@
         .nav-overlay a.hover-blue:hover { color: #00f0ff; }
         .nav-overlay a.hover-yellow:hover { color: #ffff00; }
 
-        .synopsis-container, .pub-op-container, .about-dev-container, .bad-guy-container {
+        .synopsis-container, .pub-op-container, .about-dev-container, .bad-guy-container, .contact-container {
             z-index: 10;
             display: flex;
             opacity: 0;
@@ -744,7 +744,7 @@
             transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
             position: absolute;
         }
-        .synopsis-container.active, .pub-op-container.active, .about-dev-container.active, .bad-guy-container.active {
+        .synopsis-container.active, .pub-op-container.active, .about-dev-container.active, .bad-guy-container.active, .contact-container.active {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
@@ -794,6 +794,32 @@
         .about-dev-header { text-align: center; border-bottom: 1px solid rgba(0, 240, 255, 0.4); padding-bottom: 16px; width: 100%; margin-bottom: 10px; }
         .about-dev-title { font-size: 32px; color: #00f0ff; letter-spacing: 3px; text-transform: uppercase; }
         .about-dev-text { font-size: 19px; line-height: 1.6; color: #e0e0e0; text-align: left; }
+
+        .contact-container {
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 850px;
+            max-height: 85vh;
+            overflow-y: auto;
+            gap: 25px;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        .contact-btn-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .copy-email-btn.copied {
+            background: rgba(0, 255, 102, 0.25) !important;
+            border-color: #00ff66 !important;
+            color: #00ff66 !important;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.5) !important;
+        }
 
         footer {
             text-align: center;
@@ -928,6 +954,7 @@
 
             .about-dev-title { font-size: 26px; }
             .about-dev-text { font-size: 16px; }
+            .contact-btn-row { flex-direction: column; width: 100%; gap: 12px; }
         }
     </style>
 
@@ -953,7 +980,7 @@
         </a>
     </header>
 
-    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click&f=live" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">view #hamachithepsychotickiller on 𝕏</a>
+    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click&f=live" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">view #hamachithepsychotickiller on </a>
 
     <button class="menu-toggle" aria-label="Toggle Navigation">
         <span></span>
@@ -1021,6 +1048,16 @@
                 <p class="pub-op-intro"><em>Hamachi the Psychotic Killer</em> is a completed game released in 2026. We are exploring publishing partnerships to expand global reach, support console ports, and elevate marketing.</p>
             </div>
         </div>
+
+        <div class="contact-container" id="contactContentPanel">
+            <div class="pub-op-header">
+                <h2 class="pub-op-title">GET IN TOUCH / REQUEST PITCH DECK</h2>
+            </div>
+            <div class="contact-btn-row">
+                <button class="gta-pill-btn copy-email-btn" id="copyEmailBtn">Copy Email</button>
+                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn">Open Email App</a>
+            </div>
+        </div>
     </nav>
 
     <div class="trailer-modal" id="trailerModal">
@@ -1049,7 +1086,7 @@
                             <div class="pitch-preview-window">
                                 <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
                             </div>
-                            <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
+                            <a href="#" class="gta-pill-btn pitch-deck-trigger" id="heroPitchBtn">Get in Touch / Request Pitch Deck</a>
                         </div>
                         <a href="#" class="gta-pill-btn" id="watchTrailerBtn">Watch Trailer</a>
                     </div>
@@ -1137,7 +1174,7 @@
                 <div class="pitch-preview-window">
                     <img src="https://gavinoriley.github.io/assets/prevpitchpage.png" alt="Pitch Deck Preview">
                 </div>
-                <a href="mailto:img.oriley@gmail.com?subject=Hamachi%20the%20Psychotic%20Killer%20Publishing%20Opportunity" class="gta-pill-btn">
+                <a href="#" class="gta-pill-btn pitch-deck-trigger">
                     Get in Touch / Request Pitch Deck
                 </a>
             </div>
@@ -1430,11 +1467,14 @@
         const pubOpContentPanel = document.getElementById('pubOpContentPanel');
         const aboutDevContentPanel = document.getElementById('aboutDevContentPanel');
         const badGuyContentPanel = document.getElementById('badGuyContentPanel');
+        const contactContentPanel = document.getElementById('contactContentPanel');
         
         const navSynopsisBtn = document.getElementById('navSynopsisBtn');
         const navAboutDevBtn = document.getElementById('navAboutDevBtn');
         const navBadGuyBtn = document.getElementById('navBadGuyBtn');
         const scrollExploreBtn = document.getElementById('scrollExploreBtn');
+        const pitchTriggers = document.querySelectorAll('.pitch-deck-trigger');
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
 
         function toggleMenu() {
             const isClosing = menuToggle.classList.contains('open');
@@ -1450,6 +1490,7 @@
                     pubOpContentPanel.classList.remove('active');
                     aboutDevContentPanel.classList.remove('active');
                     badGuyContentPanel.classList.remove('active');
+                    contactContentPanel.classList.remove('active');
                 }, 400);
             } else {
                 document.body.style.overflow = 'hidden';
@@ -1469,6 +1510,7 @@
             pubOpContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.remove('active');
             badGuyContentPanel.classList.remove('active');
+            contactContentPanel.classList.remove('active');
             synopsisContentPanel.classList.add('active');
         }
 
@@ -1482,6 +1524,7 @@
             pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.remove('active');
             badGuyContentPanel.classList.remove('active');
+            contactContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.add('active');
         }
 
@@ -1495,13 +1538,61 @@
             pubOpContentPanel.classList.remove('active');
             synopsisContentPanel.classList.remove('active');
             aboutDevContentPanel.classList.remove('active');
+            contactContentPanel.classList.remove('active');
             badGuyContentPanel.classList.add('active');
+        }
+
+        function openContactPanel(e) {
+            if (e) e.preventDefault();
+            if (!navOverlay.classList.contains('open')) {
+                menuToggle.classList.add('open');
+                navOverlay.classList.add('open');
+            }
+            menuLinksWrapper.classList.add('hidden');
+            pubOpContentPanel.classList.remove('active');
+            synopsisContentPanel.classList.remove('active');
+            aboutDevContentPanel.classList.remove('active');
+            badGuyContentPanel.classList.remove('active');
+            contactContentPanel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            startMenuBgAnimation();
         }
 
         navSynopsisBtn.addEventListener('click', openSynopsisPanel);
         if (navAboutDevBtn) navAboutDevBtn.addEventListener('click', openAboutDevPanel);
         if (navBadGuyBtn) navBadGuyBtn.addEventListener('click', openBadGuyPanel);
         scrollExploreBtn.addEventListener('click', openSynopsisPanel);
+
+        pitchTriggers.forEach(btn => {
+            btn.addEventListener('click', openContactPanel);
+        });
+
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', () => {
+                const emailToCopy = "img.oriley@gmail.com";
+                navigator.clipboard.writeText(emailToCopy).then(() => {
+                    copyEmailBtn.textContent = "Email Copied!";
+                    copyEmailBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyEmailBtn.textContent = "Copy Email";
+                        copyEmailBtn.classList.remove('copied');
+                    }, 2500);
+                }).catch(() => {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = emailToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(textArea);
+                    copyEmailBtn.textContent = "Email Copied!";
+                    copyEmailBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyEmailBtn.textContent = "Copy Email";
+                        copyEmailBtn.classList.remove('copied');
+                    }, 2500);
+                });
+            });
+        }
 
         navOverlay.addEventListener('click', (e) => {
             if (e.target === navOverlay) toggleMenu();
