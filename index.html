@@ -625,9 +625,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(9, 7, 16, 0.96);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(9, 7, 16, 0.65);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
             z-index: 160;
             display: flex;
             justify-content: center;
@@ -678,9 +678,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(9, 7, 16, 0.96);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(11, 8, 19, 0.55);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
             z-index: 150;
             display: flex;
             flex-direction: column;
@@ -813,6 +813,10 @@
             align-items: center;
             flex-wrap: wrap;
             margin-top: 15px;
+        }
+        .contact-btn-row .gta-pill-btn {
+            width: 230px;
+            padding: 16px 20px;
         }
         .copy-email-btn.copied {
             background: rgba(0, 255, 102, 0.25) !important;
@@ -955,6 +959,7 @@
             .about-dev-title { font-size: 26px; }
             .about-dev-text { font-size: 16px; }
             .contact-btn-row { flex-direction: column; width: 100%; gap: 12px; }
+            .contact-btn-row .gta-pill-btn { width: 100%; }
         }
     </style>
 
