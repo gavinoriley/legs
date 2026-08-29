@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[cite: 1]<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -99,6 +99,34 @@
         }
         .brand-logo-left:hover img {
             filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 42, 117, 0.8));
+        }
+
+        .heart-btn {
+            position: fixed;
+            top: 40px;
+            right: 105px;
+            width: 28px;
+            height: 18px;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            transform: scale(0.9);
+            transform-origin: top right;
+            text-decoration: none;
+        }
+        .heart-btn svg {
+            width: auto;
+            height: 100%;
+            fill: #ffffff;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .heart-btn:hover svg {
+            fill: #ff2a75;
+            transform: scale(1.15);
         }
 
         .menu-toggle {
@@ -794,6 +822,7 @@
             }
 
             .header-bar { padding: 25px 30px; }
+            .heart-btn { top: 30px; right: 70px; }
             .menu-toggle { top: 30px; right: 30px; }
 
             .hero-video-window { 
@@ -928,6 +957,12 @@
             <img src="https://gavinoriley.github.io/assets/whitehamaface.png" alt="Hamachi Icon">
         </a>
     </header>
+
+    <a href="https://x.com/search?q=%23hamachithepsychotickiller&src=hashtag_click" target="_blank" rel="noopener noreferrer" class="heart-btn" aria-label="Hamachi Hashtag on X">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </a>
 
     <button class="menu-toggle" aria-label="Toggle Navigation">
         <span></span>
