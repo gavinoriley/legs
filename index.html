@@ -9,7 +9,7 @@
     <meta property="og:title" content="Hamachi the Psychotic Killer - Publishing Partnerships">
     <meta property="og:description" content="HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.">
     <meta property="og:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
-    <meta property="og:url" content="https://hamachithepsychotickiller.com">
+    <meta property="og:url" content="https://hamachithepsychotickiller.com/publishingpartnerships/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Hamachi the Psychotic Killer">
     <meta property="og:locale" content="en_US">
@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
     <meta name="twitter:site" content="@imgavinoriley">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hamachithepsychotickiller.com">
+    <link rel="canonical" href="https://hamachithepsychotickiller.com/publishingpartnerships/">
     <link rel="icon" type="image/x-icon" href="https://gavinoriley.github.io/assets/hamafavi.ico">
     <link rel="preload" href="/assets/FSEX300.woff2" as="font" type="font/woff2" crossorigin>
    
@@ -495,7 +495,7 @@
             z-index: 30;
             width: 100%;
             max-width: 1100px;
-            margin: 60px auto 100px auto;
+            margin: 60px auto 40px auto;
             padding: 80px 40px;
             text-align: center;
             background: linear-gradient(180deg, rgba(255, 42, 117, 0.03) 0%, rgba(11, 8, 19, 0.85) 40%, rgba(255, 42, 117, 0.05) 100%);
@@ -600,6 +600,24 @@
         .pub-cta-wrapper {
             display: flex;
             justify-content: center;
+        }
+
+        .ending-gif-container {
+            position: relative;
+            z-index: 30;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 100px auto;
+            text-align: center;
+        }
+
+        .ending-gif-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 42, 117, 0.35);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 42, 117, 0.2);
+            display: block;
         }
 
         .image-modal {
@@ -957,6 +975,10 @@
                 width: calc(100% - 30px);
                 box-sizing: border-box;
             }
+            .ending-gif-container {
+                width: calc(100% - 30px);
+                margin: 0 auto 60px auto;
+            }
             .pub-section-title { font-size: 26px; }
             .pub-section-intro { font-size: 16px; }
             .image-container { flex-direction: column; align-items: center; gap: 10px; }
@@ -980,7 +1002,7 @@
       "name": "Hamachi the Psychotic Killer",
       "description": "HAMACHI THE PSYCHOTIC KILLER: The platformer game where you can play as the BAD GUY.",
       "image": "https://gavinoriley.github.io/assets/ScreenshotHomePage.png",
-      "url": "https://hamachithepsychotickiller.com",
+      "url": "https://hamachithepsychotickiller.com/publishingpartnerships/",
       "genre": "Action, Platformer, Indie",
       "gamePlatform": "PC",
       "publisher": { "@type": "Person", "name": "Gavin ORiley" }
@@ -1195,6 +1217,10 @@
         </div>
     </section>
 
+    <div class="ending-gif-container reveal-on-scroll">
+        <img src="https://gavinoriley.github.io/assets/XPOST2.gif" alt="Hamachi the Psychotic Killer Gameplay Preview">
+    </div>
+
     <div class="image-modal">
         <img src="" alt="">
     </div>
@@ -1343,7 +1369,7 @@
             });
         }
 
-        const clickableImages = document.querySelectorAll('.image-container img, .intro-preview-frame');
+        const clickableImages = document.querySelectorAll('.image-container img, .intro-preview-frame, .ending-gif-container img');
         const modal = document.querySelector('.image-modal');
         const modalImg = modal.querySelector('img');
         let activeOriginalImg = null;
